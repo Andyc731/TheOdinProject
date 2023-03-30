@@ -1,22 +1,29 @@
+html{
+    font-family: sans-serif;
+}
+
 .header{
     display: flex;
     justify-content:space-between;
-    border: black solid;
+    background-color: #1F2937;
 }
 
 .logo{
     display: flex;
     align-items: center;
-    border: black solid;
     margin-left: 300px;
+    font-size: 24px;
+    color: #F9FAF8;
+    font-weight: bold;
 }
 
 ul{
     display: flex;
     list-style-type: none;
     align-items: center;
-    border: black solid;
     margin-right: 300px;
+    font-size: 16px;
+    color: #F9FAF8;
 }
 
 li{
@@ -25,22 +32,21 @@ li{
 
 .top{
     display: flex;
-    border: black solid;
     background-color: #1F2937;
     justify-content: space-between;
     align-items: center;
-    height: 400px;
+    height: 550px;
 }
 
 .left{
     display: flex;
     flex-direction: column;
-    border: black solid;
     flex-wrap: wrap;
     max-width: 520px;
     justify-content: center;
     flex: auto;
     margin-left: 300px;
+    margin-bottom: 50px;
 }
 
 p {
@@ -50,15 +56,25 @@ p {
     font-size: 18px;
 }
 
-h2{
+h1{
     padding: 0;
     margin: 0;
     font-size: 48px;
     color: #F9FAF8;
+    font-weight: 1000;
 }
 
 button{
     display: block;
+    background-color: #3882F6;
+    border: none;
+    color: #F9FAF8;
+    width: 150px;
+    height: 38px;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .right{
@@ -67,8 +83,9 @@ button{
     justify-content: center;
     flex: auto;
     color: #E5E7EB;
-    border: red solid;
-    max-width: 600px;
-    height: 300px;
+    max-width: 550px;
+    height: 250px;
     margin-right: 300px;
+    margin-bottom: 40px;
+    background-color: grey;
 }
