@@ -98,6 +98,7 @@ button{
 h2{
     font-size: 36px;
     font-weight: 1000;
+    margin-bottom: 10px;
 }
 
 .info{
@@ -136,4 +137,30 @@ h2{
     color: black;
     text-align: center;
     width: 200px;
+}
+
+.quote-group{
+    background-color: #E5E7EB;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.quote{
+    font-size: 36px;
+    font-style: italic;
+    color: #1F2937;
+    max-width: 930px;
+    font-weight: lighter;
+    margin-top: 50px;
+}
+
+.caption{
+    color: black;
+    padding-left: 530px;
+    font-size:28px;
+    font-weight:bold;
+    margin-top: 10px;
 }
