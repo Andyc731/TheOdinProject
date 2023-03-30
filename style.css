@@ -9,7 +9,7 @@ body{
 .header{
     display: flex;
     justify-content:space-between;
-    border: black solid;
+    background-color: #1F2937;
 }
 
 .logo{
@@ -48,9 +48,10 @@ li{
     flex-wrap: wrap;
     max-width: 520px;
     justify-content: center;
-    flex: auto;
     margin-left: 300px;
     margin-bottom: 50px;
+    margin-right: 50px;
+    flex:1;
 }
 
 p {
@@ -85,11 +86,34 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: auto;
     color: #E5E7EB;
+    flex: 1;
     max-width: 550px;
     height: 250px;
     margin-right: 300px;
     margin-bottom: 40px;
     background-color: grey;
+}
+
+h2{
+    border: black solid;
+}
+
+.info{
+    border: black solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-group{
+    border: black solid;
+    display: flex;
+    justify-content: center;
+
+}
+
+.img-group{
+    flex: 0;
 }
