@@ -8,38 +8,31 @@ body{
 
 .header{
     display: flex;
-    justify-content:space-between;
     background-color: #1F2937;
+    justify-content: space-around;
+    height: 560px;
 }
 
 .logo{
     display: flex;
     align-items: center;
-    margin-left: 300px;
     font-size: 24px;
     color: #F9FAF8;
     font-weight: bold;
+    margin-bottom: 110px;
+    margin-top: 15px;
 }
 
 ul{
     display: flex;
     list-style-type: none;
-    align-items: center;
-    margin-right: 300px;
     font-size: 16px;
     color: #F9FAF8;
+    margin-top: 10px;
 }
 
 li{
     margin: 8px;
-}
-
-.top{
-    display: flex;
-    background-color: #1F2937;
-    justify-content: space-between;
-    align-items: center;
-    height: 550px;
 }
 
 .left{
@@ -47,11 +40,10 @@ li{
     flex-direction: column;
     flex-wrap: wrap;
     max-width: 520px;
-    justify-content: center;
-    margin-left: 300px;
-    margin-bottom: 50px;
-    margin-right: 50px;
-    flex:1;
+    margin-left: 150px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 1;
 }
 
 p {
@@ -74,25 +66,33 @@ button{
     background-color: #3882F6;
     border: none;
     color: #F9FAF8;
-    width: 150px;
-    height: 38px;
+    width: 147px;
+    height: 40px;
     margin-top: 20px;
     border-radius: 8px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 19px;
 }
 
 .right{
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
     color: #E5E7EB;
+    margin-right: 150px;
+    margin-left: 30px;
     flex: 1;
-    max-width: 550px;
-    height: 250px;
-    margin-right: 300px;
-    margin-bottom: 40px;
+}
+
+.pic{
+    color: #E5E7EB;
     background-color: grey;
+    margin-right: 10px;
+    margin-top: 95px;
+    flex:1;
+    max-height: 10px;
+    padding: 120px 110px;
 }
 
 h2{
