@@ -96,13 +96,11 @@ button{
 }
 
 h2{
-    border: black solid;
     font-size: 36px;
     font-weight: 1000;
 }
 
 .info{
-    border: black solid;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,7 +109,6 @@ h2{
 }
 
 .info-group{
-    border: black solid;
     display: flex;
     justify-content: center;
     gap: 60px;
