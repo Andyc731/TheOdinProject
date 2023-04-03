@@ -18,27 +18,27 @@ function compare(playerSelection, computerSelection){
 
     if (playerSelection === "rock") {
         if (computerSelection === "rock") {
-            result = "You Tied!";
+            result = "You Tied! Computer chose rock";
         } else if (computerSelection === "paper") {
-            result = "You Lose!";
+            result = "You Lose! Paper beats rock";
         } else {
-            result = "You Win!";
+            result = "You Win! Rock beats scissors";
         }
     } else if (playerSelection === "paper") {
         if (computerSelection === "rock") {
-            result = "You Win!";
+            result = "You Win! Paper beats rock";
         } else if (computerSelection === "paper") {
-            result = "You Tied!";
+            result = "You Tied! Computer chose paper";
         } else {
-            result = "You Lose!";
+            result = "You Lose! Scissors beats paper";
         }
     } else if (playerSelection === "scissors") {
         if (computerSelection === "rock") {
-            result = "You Lose!";
+            result = "You Lose! Rock beats scissors";
         } else if (computerSelection === "paper") {
-            result = "You Win!";
+            result = "You Win! Scissors beats paper";
         } else {
-            result = "You Tied!";
+            result = "You Tied! Computer chose scissors";
         }
     } else {
         result = "Invalid input";
@@ -46,4 +46,4 @@ function compare(playerSelection, computerSelection){
     console.log(result);
 }
 
-compare(prompt("Enter rock, paper or scissors"), getComputerChoice());
+compare(prompt("Enter rock, paper or scissors").toLowerCase(), getComputerChoice());
