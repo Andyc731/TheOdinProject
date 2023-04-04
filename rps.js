@@ -13,7 +13,7 @@ function getComputerChoice() {
 
 console.log(getComputerChoice());
 
-function compare(playerSelection, computerSelection){
+function playRound(playerSelection, computerSelection){
     let result = " ";
 
     if (playerSelection === "rock") {
@@ -43,7 +43,35 @@ function compare(playerSelection, computerSelection){
     } else {
         result = "Invalid input";
     }
-    console.log(result);
+    return result;
 }
 
-compare(prompt("Enter rock, paper or scissors").toLowerCase(), getComputerChoice());
+
+function game(){
+    let playerScore = 0;
+    let computerScore = 0;
+    let tie = 0;
+
+    for (i = 0; i < 5; i++) {
+        let result = playRound(prompt("Enter rock, paper or scissors").toLowerCase(), getComputerChoice());
+        console.log(result);
+        if (result === "You Win! Scissors beats paper" || result === "You Win! Paper beats rock" || result === "You Win! Rock beats scissors") {
+            playerScore++;
+        } else if (result === "You Lose! Paper beats rock" || result === "You Lose! Scissors beats paper" || result === "You Lose! Rock beats scissors") {
+            computerScore++;
+        } else {
+            tie++;
+        }
+        console.log("Current score is: %d:%d tied %d times", playerScore, computerScore, tie);
+    }
+    if (playerScore < computerScore) {
+        console.log("You lost!");
+    } else if (playerScore > computerScore) {
+        console.log("You win!");
+    } else {
+        console.log("You tied!");
+    }
+
+}
+
+console.log(game());
