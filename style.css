@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 640px;    
+    border: black solid;
+}
+
+.pixel {
+    flex: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+}
