@@ -10,7 +10,6 @@ for (let i = 0; i < 16; i++) {
             let num = 255;
             let subtract = 255/10;
             let backNum = parseFloat(grid.style.backgroundColor.split(",")[1]);
-            console.log(Number(grid.style.backgroundColor.split(",")[1]));
             if (!isNaN(Number(grid.style.backgroundColor.split(",")[1]))) {
 
                 num = Number(grid.style.backgroundColor.split(",")[1] - subtract)
@@ -45,7 +44,6 @@ btn.addEventListener("click", () => {
                 let num = 255;
                 let subtract = 255/10;
                 let backNum = parseFloat(grid.style.backgroundColor.split(",")[1]);
-                console.log(Number(grid.style.backgroundColor.split(",")[1]));
                 if (!isNaN(Number(grid.style.backgroundColor.split(",")[1]))) {
     
                     num = Number(grid.style.backgroundColor.split(",")[1] - subtract)
