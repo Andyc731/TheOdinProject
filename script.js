@@ -23,6 +23,7 @@ function operate(operator, num1, num2){
 }
 
 const digits = document.querySelector('.digits');
+const currentNum = document.querySelector('#currentNum');
 for (let i = 1; i < 13; i++) {
     const btn = document.createElement('button');
     btn.setAttribute("id", `num${i}`);
@@ -38,4 +39,29 @@ for (let i = 1; i < 13; i++) {
         btn.setAttribute("id", "num0");
         btn.textContent = "0";
     }
+
+    btn.addEventListener("click", () => {
+        if (i < 10) {
+            currentNum.textContent += `${i}`;
+        } else if (i === 10) {
+            currentNum.textContent += "0";
+        } else if (i === 11) {
+            if (currentNum.textContent !== "" && !currentNum.textContent.includes(".")) {
+                currentNum.textContent += ".";
+            }
+        }
+        //  else {
+        //     operate(num1, num2);
+        // }
+        })
 }
+
+const clear = document.querySelector('#clear');
+clear.addEventListener("click", () => {
+    currentNum.textContent = "";
+})
+
+const del = document.querySelector('#delete');
+del.addEventListener("click", () => {
+    currentNum.textContent = currentNum.textContent.slice(0, currentNum.textContent.length - 1);
+})
