@@ -1,0 +1,64 @@
+body{
+    display: flex;
+    justify-content: center;
+}
+.container {
+    width: 400px;
+    height: 560px;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    align-items: center;
+}
+
+.disp {
+    width: 350px;
+    height: 100px;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.digits{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.operators {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button{
+    min-width: 70px;
+    min-height: 70px;
+    max-width: 70px;
+    max-height: 70px;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    margin-left: 20px;
+    margin-right: 40px;
+    margin-top: 5px;
+}
+
+.clear-delete{
+    display: flex;
+}
+#clear,
+#delete {
+    width: 160px;
+    height: 20px;
+    min-width: none;
+    max-width: none;
+    margin: 10px;
+
+}
