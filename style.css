@@ -13,11 +13,19 @@ body{
 }
 
 .disp {
+    display: flex;
+    flex-direction: column;
     width: 350px;
     height: 100px;
     background-color: white;
     margin-top: 20px;
     border-radius: 10px;
+    align-items: end;
+    justify-content: center;
+}
+
+p {
+    margin: 10px 20px 10px 10px;
 }
 
 .digits{
@@ -53,10 +61,13 @@ button{
 .clear-delete{
     display: flex;
 }
+
 #clear,
 #delete {
     width: 160px;
-    height: 20px;
+    height: 10px;
+    min-height: none;
+    max-height: none;
     min-width: none;
     max-width: none;
     margin: 10px;
