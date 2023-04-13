@@ -9,13 +9,12 @@ const div = document.querySelector('#divide');
 const mult = document.querySelector('#multiply');
 const sub = document.querySelector('#subtract');
 
-let num1 = 0;
-let num2 = 0;
 let operator = "";
 let temp = false;
 let tempEqual = false;
 let tempOp = false;
 
+currentNum.textContent = "0";
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -135,7 +134,7 @@ sub.addEventListener("click", () => {
 })
 
 clear.addEventListener("click", () => {
-    currentNum.textContent = "";
+    currentNum.textContent = "0";
     used.textContent = "";
     temp = false;
     tempEqual = false;
