@@ -13,7 +13,8 @@ let num1 = 0;
 let num2 = 0;
 let operator = "";
 let temp = false;
-let tempEqual = true;
+let tempEqual = false;
+let tempOp = false;
 
 function add(num1, num2) {
     return num1 + num2;
@@ -42,41 +43,49 @@ function operate(operator, num1, num2){
         return divide(num1, num2)
     }
 }
-
-for (let i = 1; i < 12; i++) {
+function createButton(i) {
     const btn = document.createElement('button');
     btn.setAttribute("id", `num${i}`);
     digits.appendChild(btn);
     btn.textContent = `${i}`;
-    if (i === 11) {
-        btn.setAttribute("id", "dot");
-        btn.textContent = ".";
-    } else if (i === 10) {
-        btn.setAttribute("id", "num0");
-        btn.textContent = "0";
-    }
-
     btn.addEventListener("click", () => {
         if (temp) {
             currentNum.textContent = "";
             temp = false;
         }
-        if (i < 10) {
-            currentNum.textContent += `${i}`;
-        } else if (i === 10) {
-            currentNum.textContent += "0";
-        } else if (i === 11) {
-            if (currentNum.textContent !== "" && !currentNum.textContent.includes(".")) {
-                currentNum.textContent += ".";
-            }
-        } 
-        
-        if (temp) {
+        if (currentNum.textContent === "0") {
             currentNum.textContent = "";
-            temp = false;
         }
-        })
+        currentNum.textContent += `${i}`;
+        if (Number(currentNum.textContent) === 0) {
+            currentNum.textContent = "0";
+        }
+        tempOp = true;
+    })
 }
+
+for (let i = 7; i < 10; i++) {
+    createButton(i);
+}
+
+for (let i = 4; i < 7; i++) {
+    createButton(i);
+}
+
+for (let i = 1; i < 4; i++) {
+    createButton(i);
+}
+
+createButton(0);
+
+const dot = document.createElement('button');
+digits.appendChild(dot);
+dot.textContent = ".";
+dot.addEventListener("click", () => {
+    if (currentNum.textContent !== "" && !currentNum.textContent.includes(".")) {
+        currentNum.textContent += ".";
+    }
+})
 
 digits.appendChild(equal);
 equal.textContent = "=";
@@ -92,38 +101,44 @@ equal.addEventListener("click", () => {
     }
 })
 
-
-sum.addEventListener("click", () => {
-    used.textContent = Number(currentNum.textContent) + " + ";
+function calc() {
+    if (tempOp && used.textContent !== "" && !used.textContent.includes("=")){
+        currentNum.textContent = operate(operator, parseFloat(used.textContent), parseFloat(currentNum.textContent));
+        tempOp = false;
+    }
     temp = true;
-    operator = " + ";
     tempEqual = true;
+    tempOp = false;
+}
+sum.addEventListener("click", () => {
+    calc();
+    operator = " + ";
+    used.textContent = Number(currentNum.textContent) + " + ";
 })
 
 div.addEventListener("click", () => {
-    used.textContent = Number(currentNum.textContent) + " \u00f7 ";
-    temp = true;
+    calc();
     operator = " \u00f7 ";
-    tempEqual = true;
+    used.textContent = Number(currentNum.textContent) + " \u00f7 ";
 })
 
 mult.addEventListener("click", () => {
-    used.textContent = Number(currentNum.textContent) + " * ";
-    temp = true;
+    calc();
     operator = " * ";
-    tempEqual = true;
+    used.textContent = Number(currentNum.textContent) + " * ";
 })
 
 sub.addEventListener("click", () => {
-    used.textContent = Number(currentNum.textContent) + " - ";
-    temp = true;
+    calc();
     operator = " - ";
-    tempEqual = true;
+    used.textContent = Number(currentNum.textContent) + " - ";
 })
 
 clear.addEventListener("click", () => {
     currentNum.textContent = "";
     used.textContent = "";
+    temp = false;
+    tempEqual = false;
 })
 
 del.addEventListener("click", () => {
