@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+
 @font-face {
     font-family: "Nord-Bold";
     src: url(font/Norse-Bold.otf);
@@ -42,7 +46,7 @@ h1 {
     top: 0;
     left: 0;
     width: 600px;
-    height: 1400px;
+    height: 1200px;
     background-image: url(picture/honeycomb.jpg);
     background-size: cover;
     margin: 0px;
@@ -56,17 +60,27 @@ h1 {
     height: 140px;
 }
 
-.sub_container {
+.top-para {
+    margin-top: 200px;
+}
+
+.sub-container {
     display: flex;
     flex-direction: column;
-    padding: 0px 0px 20px 20px;
-    border-radius: 10px;
-    box-shadow: 0px 7px 10px 3px rgba(0, 0, 0, .4);
+    padding: 20px 0px 60px 20px;
+    margin: 50px 0px 20px 0px;
+    box-shadow: 0px 8px 15px 1px rgba(0, 0, 0, .4);
 }
 
 button {
-    padding: 10px;
-    margin: 30px;
+    padding: 15px 60px 15px 60px;
+    margin: 30px 0px 10px 60px;
+    border-radius: 10px;
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    background-color: #596D48;
 }
 
 .row1,
@@ -87,8 +101,60 @@ button {
 }
 
 p{
-    color: blue;
-    font-size: 23px;
-    font-weight: 400;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    padding: 0px 200px 0px 60px;
+    font-family: 'Poppins';
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.form-header {
+    padding: 0;
+    padding-left: 40px;
+    margin-bottom: 0px;
+}
+
+label {
+    font-family: 'Poppins';
+    font-size: 15px;
+    color: rgb(65, 65, 65);
+    letter-spacing: 1px;
+    margin-top: 40px;
+    padding-left: 40px;
+}
+
+
+input {
+    font-family: 'Poppins';
+    font-size: 16px;
+    margin: 0px 50px 0px 40px;
+    padding-left: 10px;
+    width: 300px;
+    height: 26px;
+    border-radius: 4px;
+    border-color: #E5E7EB;
+    outline: none;
+}
+
+input:focus {
+    border-color: blue;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, .4);
+}
+
+.have {
+    margin-top: 30px;
+    font-size: 17px;
+    font-weight: normal;
+    color: rgb(45, 45, 45);
+
+}
+
+.error {
+    border-color: red;
+}
+
+#match {
+    font-size: 10px;
+    margin: 0px 0px -20px 45px;
+    padding: 0;
+    color: red;
 }

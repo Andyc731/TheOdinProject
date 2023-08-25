@@ -17,14 +17,14 @@
             <h1>ODIN</h1>
         </div>
         <div class="right">
-            <p>This is not a real online service! You know you need something like this in your life to help you realize your deepest dreams. Sign up <em>now</em> to get started</p>
+            <p class="top-para">This is not a real online service! You know you need something like this in your life to help you realize your deepest dreams. Sign up <em>now</em> to get started</p>
             <p>You <em>know</em> you want to.</p>
             <form action="" method="post">
-                <div class="sub_container">
+                <div class="sub-container">
                     <p class="form-header">Let's do this!</p>
                     <div class="row1">
                         <div class="first">
-                            <label for="first_name">*First Name</label>
+                            <label for="first_name">*FIRST NAME</label>
                             <input type="text" name="first_name" id="first_name" required>
                         </div>
                         <div class="last">
@@ -45,17 +45,17 @@
                     <div class="row3">
                         <div class="password">
                             <label for="user_password">*Password</label>
-                            <input type="password" name="user_password" id="user_password" required>
+                            <input type="password" class="error" name="user_password" id="user_password" required>
                         </div>
                         <div class="confirm_pass">
                             <label for="confirm_password">*Confirm Password</label>
-                            <input type="text" name="confirm_password" id="confirm_password" required>
+                            <input type="password" class="error" name="confirm_password" id="confirm_password" required>
                         </div>
                     </div>
                 </div>
                 <button type="submit">Create Account</button>
             </form>
-            <p>Already have an account? <a href="">log in</a></p>
+            <p class="have">Already have an account? <a href="">Log in</a></p>
         </div>
     </div>
     <script src="app.js"></script>
