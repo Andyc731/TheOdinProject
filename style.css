@@ -1,0 +1,29 @@
+
+body {
+    margin: 0;
+}
+
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template: 80px 140px 1fr / 400px 1fr;
+}
+
+.sidebar {
+    grid-row: 1 / 4;
+    background-color: aqua;
+}
+
+.searchbar {
+    background-color: blue;
+}
+
+.userbar {
+    background-color: beige;
+}
+
+.content {
+    display: grid;
+    gap: 10px;
+    background-color: blueviolet;
+}
