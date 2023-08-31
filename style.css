@@ -6,16 +6,42 @@ body {
 .container {
     display: grid;
     height: 100vh;
-    grid-template: 80px 140px 1fr / 400px 1fr;
+    grid-template: 70px 100px 1fr / 300px 1fr;
 }
 
 .sidebar {
     grid-row: 1 / 4;
+    display: grid;
+    grid-template-rows: 70px 300px 150px;
     background-color: aqua;
+    gap: 30px;
+}
+
+.dashboard {
+    align-self: center;
+    padding-left: 40px;
+    font-size: 24px;
+}
+
+.home-tab,
+.settings-tab {
+    display: grid;
+    grid-row: repeat(6, 50px);
+    padding-left: 40px;
 }
 
 .searchbar {
+    display: grid;
+    grid-template-columns: minmax(700px, 1fr) 300px;
     background-color: blue;
+}
+
+.bar {
+    height: 50%;
+    background-color: white;
+    align-self: center;
+    border-radius: 17px;
+    margin-left: 50px
 }
 
 .userbar {
@@ -24,6 +50,38 @@ body {
 
 .content {
     display: grid;
-    gap: 10px;
+    grid-template: 1fr 1fr / 3fr 1fr;
     background-color: blueviolet;
+    gap: 30px;
+    padding: 30px;
+}
+
+.projects {
+    grid-row: 1 / 3;
+    display: grid;
+    grid-template: 40px / minmax(300px, 1fr) minmax(300px, 1fr);
+    gap: 15px;
+}
+
+.card {
+    background-color: white;
+}
+
+.proj-label {
+    grid-column: 1 / 3;
+}
+
+.announce,
+.trending {
+    display: grid;
+    grid-template-rows: 40px;
+    gap:  15px;
+}
+
+.announce-card {
+    background-color: white;
+}
+
+.trending-card {
+    background-color: white;
 }
