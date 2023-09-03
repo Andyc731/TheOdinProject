@@ -4,7 +4,8 @@
 body {
     margin: 0;
     font-family: "Poppins";
-    font-weight: 7  00;
+    font-weight: 700;
+    font-size: 17px;
 }
 
 .container {
@@ -16,7 +17,7 @@ body {
 .sidebar {
     grid-row: 1 / 4;
     display: grid;
-    grid-template-rows: 70px 300px 150px;
+    grid-template-rows: 80px 300px 150px;
     background-color: aqua;
     gap: 30px;
     z-index: 10;
@@ -89,11 +90,12 @@ body {
 .search-user {
     align-self: center;
     margin-left: 30px;
+    margin-right: 10px;
 }
 
 .user {
     display: grid;
-    grid-template-columns: 150px 2fr 1fr;
+    grid-template-columns: 150px 2fr 400px;
     background-color: white;
     box-shadow: 2px 0px 10px 2px rgba(0, 0, 0, .4);
     z-index: 2;
@@ -122,8 +124,8 @@ body {
 }
 
 button {
-    background-color: blue;
-    color: white;
+    background-color: aqua;
+    color: blue;
     width: 100px;
     height: 40px;
     border-radius: 30px;
@@ -139,26 +141,39 @@ button {
     display: grid;
     grid-template: 1fr 1fr / 3fr 1fr;
     background-color: rgb(220, 220, 235);
-    gap: 30px;
     padding: 30px;
+    gap: 15px;
 }
 
 .projects {
     grid-row: 1 / 3;
     display: grid;
     grid-template-rows: 40px 1fr;
-    gap: 20px;
+    grid-template-columns: minmax(470px, 1fr) minmax(470px, 1fr);
+    justify-content: space-evenly;
 }
 
-.proj-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 15px;
+.proj-label {
+    grid-column: 1 / 3;
 }
+
+/* .proj-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-around;
+    background-color: blue;
+    gap: 15px;
+} */
 
 .card {
-    min-height: 200px;
+    margin: 20px 20px 0px 0px;
+    height: 250px;
     background-color: white;
+    border-radius: 10px;
+    background-image: -webkit-linear-gradient(left, red, red 10px, transparent 10px, transparent 100%);
+    padding: 30px 30px 5px 30px;
+    display: grid;
+    grid-template-rows: 50px 120px 30px;
 }
 
 
@@ -167,16 +182,56 @@ button {
     display: grid;
     grid-template-rows: 40px;
     gap: 20px;
+    width: 340px;
 }
 
-.announce-card {
-    background-color: white;
-}
 
+.announce-card,
 .trending-card {
     background-color: white;
+    border-radius: 10px;
+}
+
+.proj-title {
+    margin-top: 0px;
+}
+
+.proj-description {
+    margin-top: -10px;
+    margin-bottom: 0;
+    text-overflow: ellipsis;
+
+    /* Required for text-overflow to do anything */
+    overflow: hidden;
 }
 
 .label {
     font-size: 20px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+.proj-card-svg {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    justify-content: end;
+    margin-top: 15px;
+}
+
+.proj-card-anchor {
+    width: 40px;
 }
