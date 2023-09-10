@@ -2,3 +2,13 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
 }
+
+#bookForm {
+    display: none;
+}
+
+#form-container {
+    display: grid;
+    grid-column: 1fr;
+    max-width: 400px;
+}

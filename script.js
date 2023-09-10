@@ -21,6 +21,14 @@ function addBookToLibrary() {
     myLibrary.push(book);
 }
 
+function openForm() {
+    document.getElementById("bookForm").style.display = "block";
+}
+
+function closeForm() {
+    document.getElementById("bookForm").style.display = "none";
+}
+
 const blah2 = new Book(1, 2, 3, 4);
 const blah3 = new Book(2, 3, 4, 5);
 
