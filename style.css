@@ -5,10 +5,19 @@
 
 #bookForm {
     display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: white;
+    justify-content: center;
+    top: 0;
+    left: 0;
 }
 
 #form-container {
+    align-self: center;
     display: grid;
-    grid-column: 1fr;
-    max-width: 400px;
+    grid-template-columns: 1fr;
+    width: 250px;
+    
 }

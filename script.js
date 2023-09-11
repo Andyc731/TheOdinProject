@@ -22,7 +22,7 @@ function addBookToLibrary() {
 }
 
 function openForm() {
-    document.getElementById("bookForm").style.display = "block";
+    document.getElementById("bookForm").style.display = "grid";
 }
 
 function closeForm() {
