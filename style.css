@@ -19,5 +19,10 @@
     display: grid;
     grid-template-columns: 1fr;
     width: 250px;
-    
+    padding: 15px;
+    background-color: aquamarine;
+}
+
+button {
+    margin: 10px;
 }

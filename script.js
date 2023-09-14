@@ -2,7 +2,17 @@ const container = document.querySelector(".container");
 
 
 const myLibrary = [];
+const dialog = document.querySelector("#dialog");
+const openForm = document.querySelector(".openForm");
+const closeForm = document.querySelector(".closeForm");
 
+openForm.addEventListener("click", () => {
+    dialog.showModal();
+})
+
+closeForm.addEventListener("click", () => {
+    dialog.close();
+})
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -12,22 +22,11 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary() {
-    let title = prompt("Enter title");
-    let author = prompt("Enter author")
-    let pages = prompt("Enter pages");
-    let read = prompt("Enter if you have read the book (yes or no)");
 
     const book = new Book(title, author, pages, read);
     myLibrary.push(book);
 }
 
-function openForm() {
-    document.getElementById("bookForm").style.display = "grid";
-}
-
-function closeForm() {
-    document.getElementById("bookForm").style.display = "none";
-}
 
 const blah2 = new Book(1, 2, 3, 4);
 const blah3 = new Book(2, 3, 4, 5);

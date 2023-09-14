@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button type="button" class="openForm" onclick="openForm()">New Book</button>
-    <div id="bookForm">
-        <form action="" method="" id="form-container">
+    <button type="button" class="openForm">New Book</button>
+    <dialog id="dialog">
+        <form action="" method="get" id="form-container">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title">
     
@@ -22,9 +22,11 @@
             <label for="read">Have you read it?</label>
             <input type="checkbox" id="read" name="read">
     
-            <button type="button" class="closeForm" onclick="closeForm()">Close</button>
+            <button type="button" class="submit" onclick="closeForm()">Submit</button>
+
+            <button type="button" class="closeForm">Close</button>
         </form>
-    </div>
+    </dialog>
     <div class="container">
         
     </div>
