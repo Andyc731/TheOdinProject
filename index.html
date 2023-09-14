@@ -20,9 +20,9 @@
             <input type="number" id="pages" name="pages">
     
             <label for="read">Have you read it?</label>
-            <input type="checkbox" id="read" name="read">
+            <input type="checkbox" value="false" id="read" name="read" onclick="handleClick(this)">
     
-            <button type="button" class="submit" onclick="closeForm()">Submit</button>
+            <button type="button" id="submit">Submit</button>
 
             <button type="button" class="closeForm">Close</button>
         </form>

@@ -5,6 +5,7 @@ const myLibrary = [];
 const dialog = document.querySelector("#dialog");
 const openForm = document.querySelector(".openForm");
 const closeForm = document.querySelector(".closeForm");
+const submit = document.querySelector("#submit");
 
 openForm.addEventListener("click", () => {
     dialog.showModal();
@@ -14,6 +15,26 @@ closeForm.addEventListener("click", () => {
     dialog.close();
 })
 
+submit.addEventListener("click", () => {
+    const title = document.querySelector("#title").value;
+    const author = document.querySelector("#author").value;
+    const pages = document.querySelector("#pages").value;
+    const read = document.querySelector("#read").value;
+
+
+    const book = new Book(title, author, pages, read);
+    console.log(book);
+
+})
+
+function handleClick(cb) {
+    if (cb.value === "true") {
+        cb.value = "false";
+    } else {
+        cb.value = "true";
+    }
+}
+
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -21,9 +42,7 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
-function addBookToLibrary() {
-
-    const book = new Book(title, author, pages, read);
+function addBookToLibrary(book) {
     myLibrary.push(book);
 }
 
@@ -33,9 +52,6 @@ const blah3 = new Book(2, 3, 4, 5);
 
 myLibrary.push(blah2);
 myLibrary.push(blah3);
-
-
-addBookToLibrary();
 
 for (let i = 0; i < myLibrary.length; i++) {
     

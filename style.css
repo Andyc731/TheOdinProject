@@ -20,6 +20,9 @@
     grid-template-columns: 1fr;
     width: 250px;
     padding: 15px;
+}
+
+dialog {
     background-color: aquamarine;
 }
 
