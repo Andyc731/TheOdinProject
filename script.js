@@ -6,6 +6,7 @@ const dialog = document.querySelector("#dialog");
 const openForm = document.querySelector(".openForm");
 const closeForm = document.querySelector(".closeForm");
 const submit = document.querySelector("#submit");
+const form = document.querySelector("#form-container");
 
 openForm.addEventListener("click", () => {
     dialog.showModal();
@@ -21,18 +22,23 @@ submit.addEventListener("click", () => {
     const pages = document.querySelector("#pages").value;
     const read = document.querySelector("#read").value;
 
+    if (title === "" || author === "" || pages === "") {
+        return;
+    }
 
     const book = new Book(title, author, pages, read);
-    console.log(book);
 
+    addBookToLibrary(book);
+
+    displayBook();
+
+    form.reset();
+
+    dialog.close();
 })
 
 function handleClick(cb) {
-    if (cb.value === "true") {
-        cb.value = "false";
-    } else {
-        cb.value = "true";
-    }
+    cb.value === "false" ? cb.value = "true" : cb.value = "false";
 }
 
 function Book(title, author, pages, read) {
@@ -48,13 +54,12 @@ function addBookToLibrary(book) {
 
 
 const blah2 = new Book(1, 2, 3, 4);
-const blah3 = new Book(2, 3, 4, 5);
+const blah3 = new Book(2, 3, 4, 5); 
 
 myLibrary.push(blah2);
-myLibrary.push(blah3);
 
-for (let i = 0; i < myLibrary.length; i++) {
-    
+function displayBook() {
+        
     const newDiv = document.createElement("div");
     const title = document.createElement("p");
     const author = document.createElement("p")
@@ -62,10 +67,10 @@ for (let i = 0; i < myLibrary.length; i++) {
     const read = document.createElement("p")
 
 
-    title.textContent = myLibrary[i].title;
-    author.textContent = myLibrary[i].author;
-    pages.textContent = myLibrary[i].pages;
-    read.textContent = myLibrary[i].read;
+    title.textContent = myLibrary[myLibrary.length - 1].title;
+    author.textContent = myLibrary[myLibrary.length - 1].author;
+    pages.textContent = myLibrary[myLibrary.length - 1].pages;
+    read.textContent = myLibrary[myLibrary.length - 1].read;
 
 
     newDiv.appendChild(title);
@@ -75,7 +80,13 @@ for (let i = 0; i < myLibrary.length; i++) {
 
     
     container.appendChild(newDiv);
+
+}
+
+for (let i = 0; i < myLibrary.length; i++) {
+    displayBook();
 }
 
 
 console.log(myLibrary);
+console.log(myLibrary[myLibrary.length - 1]);
