@@ -17,22 +17,24 @@ closeForm.addEventListener("click", () => {
 })
 
 submit.addEventListener("click", () => {
-    const title = document.querySelector("#title").value;
-    const author = document.querySelector("#author").value;
-    const pages = document.querySelector("#pages").value;
-    const read = document.querySelector("#read").value;
+    const title = document.querySelector("#title");
+    const author = document.querySelector("#author");
+    const pages = document.querySelector("#pages");
+    const read = document.querySelector("#read");
 
-    if (title === "" || author === "" || pages === "") {
+    if (title.value === "" || author.value === "" || pages.value === "") {
         return;
     }
 
-    const book = new Book(title, author, pages, read);
+    const book = new Book(title.value, author.value, pages.value, read.value);
 
     addBookToLibrary(book);
 
     displayBook();
 
     form.reset();
+
+    read.value = "false";
 
     dialog.close();
 })
@@ -67,10 +69,10 @@ function displayBook() {
     const read = document.createElement("p")
 
 
-    title.textContent = myLibrary[myLibrary.length - 1].title;
-    author.textContent = myLibrary[myLibrary.length - 1].author;
-    pages.textContent = myLibrary[myLibrary.length - 1].pages;
-    read.textContent = myLibrary[myLibrary.length - 1].read;
+    title.textContent = "Title: " + myLibrary[myLibrary.length - 1].title;
+    author.textContent = "Author: " + myLibrary[myLibrary.length - 1].author;
+    pages.textContent = "Number of Pages: " + myLibrary[myLibrary.length - 1].pages;
+    read.textContent = "Finished Reading: " + myLibrary[myLibrary.length - 1].read;
 
 
     newDiv.appendChild(title);
