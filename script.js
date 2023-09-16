@@ -1,12 +1,11 @@
 const container = document.querySelector(".container");
-
-
 const myLibrary = [];
 const dialog = document.querySelector("#dialog");
 const openForm = document.querySelector(".openForm");
 const closeForm = document.querySelector(".closeForm");
 const submit = document.querySelector("#submit");
 const form = document.querySelector("#form-container");
+const button = document.querySelector(".openForm");
 
 openForm.addEventListener("click", () => {
     dialog.showModal();
@@ -58,7 +57,6 @@ function addBookToLibrary(book) {
 const blah2 = new Book(1, 2, 3, 4);
 const blah3 = new Book(2, 3, 4, 5); 
 
-myLibrary.push(blah2);
 
 function displayBook() {
         
@@ -68,27 +66,33 @@ function displayBook() {
     const pages = document.createElement("p")
     const read = document.createElement("p")
 
+    title.classList.add("bookTitle");
 
-    title.textContent = "Title: " + myLibrary[myLibrary.length - 1].title;
+    title.textContent = myLibrary[myLibrary.length - 1].title;
     author.textContent = "Author: " + myLibrary[myLibrary.length - 1].author;
     pages.textContent = "Number of Pages: " + myLibrary[myLibrary.length - 1].pages;
     read.textContent = "Finished Reading: " + myLibrary[myLibrary.length - 1].read;
 
-
+    newDiv.classList.add("card");
     newDiv.appendChild(title);
     newDiv.appendChild(author);
     newDiv.appendChild(pages);
     newDiv.appendChild(read);
+    newDiv.style.backgroundColor =  "rgb(" + randomNum() + "," + randomNum() + "," + randomNum() + ")";
 
     
     container.appendChild(newDiv);
+    container.appendChild(button);
 
+}
+
+function randomNum() {
+    return 175 + Math.floor(Math.random() * 70);
 }
 
 for (let i = 0; i < myLibrary.length; i++) {
     displayBook();
 }
-
 
 console.log(myLibrary);
 console.log(myLibrary[myLibrary.length - 1]);

@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Library</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button type="button" class="openForm">New Book</button>
+    <h1>My Library</h1>
     <dialog id="dialog">
         <form action="" method="get" id="form-container">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title">
-    
-            <label for="author">Author:</label>
-            <input type="text" id="author" name="author">
-    
-            <label for="pages">Number of Pages:</label>
-            <input type="number" id="pages" name="pages">
-    
-            <label for="read">Have you read it?</label>
-            <input type="checkbox" value="false" id="read" name="read" onclick="handleClick(this)">
-    
+            <input type="text" id="title" name="title" placeholder="Title">
+            
+            <input type="text" id="author" name="author" placeholder="Author">
+            
+            <input type="number" id="pages" name="pages" placeholder="Pages">
+            
+            <div class="is-read">
+                <label for="read">Have you read it?</label>
+                <input type="checkbox" value="false" id="read" name="read" onclick="handleClick(this)">
+            </div>
+            
             <button type="button" id="submit">Submit</button>
-
+            
             <button type="button" class="closeForm">Close</button>
         </form>
     </dialog>
     <div class="container">
         
+        <button type="button" class="openForm">+</button>
     </div>
     <script src="script.js"></script>
 </body>
