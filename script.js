@@ -1,14 +1,14 @@
 const container = document.querySelector(".container");
 
 const createGameboard = () => {
-    let playerTurn = true;
-
+    
     const gameboard = [
         0, 0, 0,
         0, 0, 0,
         0, 0, 0
     ]
-
+    
+    let playerTurn = true;
     for (let i = 0; i < 9; i++) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
@@ -16,27 +16,33 @@ const createGameboard = () => {
         cell.addEventListener("click", () => {
             if (cell.textContent === "") {
                 const currentPlayer = playerTurn ? player1 : player2;
-                cell.textContent = currentPlayer.marker;
                 playerTurn = !playerTurn;
+                cell.textContent = currentPlayer.marker;
                 gameboard[i] = currentPlayer.marker;
-
-                console.log(gameboard);
-                for (let j = 0; j < winningCombo.length; j++) {
-                    let counter = 0;
-                    for (let k = 0; k < winningCombo[j].length; k++) {
-                        if (gameboard[winningCombo[j][k]-1] === currentPlayer.marker) {
-                            counter++;
-                        }
-                    }
-                    if (counter === 3) {
-                        console.log("you win");
-                    }
-                }
+                
+                console.log(gameboard); 
+                checkWin(gameboard, currentPlayer)
             }
 
 
         })
         container.appendChild(cell);
+    }
+
+    const checkWin = (gameboard, currentPlayer) => {
+        for (let i = 0; i < winningCombo.length; i++) {
+            let counter = 0;
+            for (let j = 0; j < winningCombo[j].length; j++) {
+                if (gameboard[winningCombo[i][j]-1] === currentPlayer.marker) {
+                    counter++;
+                }
+            }
+            if (counter === 3) {
+                console.log("you win");
+                return true;
+            }
+        }
+        return false;
     }
     
     return {gameboard};
