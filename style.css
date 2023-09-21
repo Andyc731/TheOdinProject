@@ -1,0 +1,15 @@
+.cell {
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+}
