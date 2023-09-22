@@ -1,11 +1,15 @@
 const container = document.querySelector(".container");
-const dialog = document.getElementById("dialog");
-const restart = document.getElementById("restart");
+const winDialog = document.getElementById("winDialog");
+const drawDialog = document.getElementById("drawDialog");
+const reset = document.querySelectorAll(".reset");
 
 
-restart.addEventListener("click", () => {
-    gameboard.reset();
-    dialog.close();
+reset.forEach((item) => {
+    item.addEventListener("click", () => {
+        gameboard.reset();
+        winDialog.close();
+        drawDialog.close();
+    })
 })
 
 const createGameboard = () => {
@@ -17,6 +21,7 @@ const createGameboard = () => {
     ]
     
     let playerTurn = true;
+
     for (let i = 0; i < 9; i++) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
@@ -31,6 +36,8 @@ const createGameboard = () => {
                 console.log(gameboard); 
                 if (checkWin(gameboard, currentPlayer)) {
                     endGame();
+                } else if(checkFull() && !checkWin(gameboard, currentPlayer)) {
+                    isDraw();
                 }
             }
             
@@ -38,9 +45,17 @@ const createGameboard = () => {
         })
         container.appendChild(cell);
     }
+
+    const checkFull = () => {
+        return (gameboard.every((item) => {return item !== 0}));
+    }
+
+    const isDraw = () => {
+        drawDialog.showModal();
+    }
     
     const endGame = () => {
-        dialog.showModal();
+        winDialog.showModal();
     }
     
     const reset = () => {
