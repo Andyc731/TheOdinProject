@@ -66,19 +66,11 @@ const createGameboard = (() => {
     }
 
     const checkWin = (gameboard, currentPlayer) => {
-        for (let i = 0; i < winningCombo.length; i++) {
-            let counter = 0;
-            for (let j = 0; j < winningCombo[j].length; j++) {
-                if (gameboard[winningCombo[i][j]] === currentPlayer.marker) {
-                    counter++;
-                }
-            }
-            if (counter === 3) {
-                console.log("you win");
-                return true;
-            }
-        }
-        return false;
+        return winningCombo.some((combo) => {
+            return combo.every((index) => {
+                return gameboard[index] === currentPlayer.marker
+            })
+        })
     }
     
     return {gameboard, reset};
