@@ -38,7 +38,7 @@ const createGameboard = (() => {
                 board[index] = currentPlayer.marker;
                 
                 if (checkWin(gameboard, currentPlayer)) {
-                    endGame();
+                    endGame(currentPlayer);
                 } else if(checkFull()) {
                     isDraw();
                 }
@@ -58,7 +58,9 @@ const createGameboard = (() => {
         drawDialog.showModal();
     }
     
-    const endGame = () => {
+    const endGame = (currentPlayer) => {
+        const winText = document.getElementById("winText");
+        winText.textContent = `${currentPlayer.marker} Wins! Congratulations!`;
         winDialog.showModal();
     }
     
