@@ -1,9 +1,15 @@
+const player = (marker) => {
+    return {marker};
+}
 const createGameboard = (() => {
     const container = document.querySelector(".container");
     const winDialog = document.getElementById("winDialog");
     const drawDialog = document.getElementById("drawDialog");
     const resetButtons = document.querySelectorAll(".reset");
     
+    const player1 = player("X");
+    const player2 = player("O");
+
     resetButtons.forEach((button) => {
         button.addEventListener("click", () => {
             reset();
@@ -17,32 +23,32 @@ const createGameboard = (() => {
         0, 0, 0,
         0, 0, 0
     ]
-    
-    let playerTurn = true;
 
-    for (let i = 0; i < 9; i++) {
+    gameboard.forEach((part, index, board) => {
         const cell = document.createElement("div");
         cell.classList.add("cell");
+        container.appendChild(cell);
         
         cell.addEventListener("click", () => {
             if (cell.textContent === "") {
                 const currentPlayer = playerTurn ? player1 : player2;
                 playerTurn = !playerTurn;
+
                 cell.textContent = currentPlayer.marker;
-                gameboard[i] = currentPlayer.marker;
+                board[index] = currentPlayer.marker;
                 
-                console.log(gameboard); 
                 if (checkWin(gameboard, currentPlayer)) {
                     endGame();
-                } else if(checkFull() && !checkWin(gameboard, currentPlayer)) {
+                } else if(checkFull()) {
                     isDraw();
                 }
             }
             
             
         })
-        container.appendChild(cell);
-    }
+    })
+    
+    let playerTurn = true;
 
     const checkFull = () => {
         return (gameboard.every((item) => {return item !== 0}));
@@ -74,46 +80,7 @@ const createGameboard = (() => {
     }
     
     return {gameboard, reset};
-})();
-
-// for (let i = 0; i < 3; i++) {
-    //     const row = document.createElement("div");
-    //     row.classList.add("row");
-    //     for (let j = 0; j < 3; j++) {
-        //         const cell = document.createElement("div");
-        //         cell.classList.add("cell");
-        
-        //         cell.addEventListener("click", () => {
-            //             if (cell.textContent === "") {
-                //                 const currentPlayer = playerTurn ? player1 : player2;
-                //                 cell.textContent = currentPlayer.marker;
-                //                 playerTurn = !playerTurn;
-                //                 gameboard[i][j] = currentPlayer.marker;
-
-                //                 console.log(gameboard);
-                //             }
-                
-                //         })
-                //         row.appendChild(cell);
-                //     }
-                //     container.appendChild(row);
-                //     console.log(row);
-                // }
-                
-                //check for winning combinations
-                // for (let k = 0; k < winningCombo.length; k++) {
-                    //     let count = 0;
-                    //     for (let l = 0; l < winningCombo[k].length; l++){
-                    //         if (gameboard[winningCombo[k][l][0]][winningCombo[k][l][1]] === currentPlayer.marker) {
-                    //             count++;
-                    //             console.log(count);
-                    //         }
-                    //     }
-                    //     if(count === 3) {
-                        //         console.log("you win");
-                        //     }
-                        // }
-                        
+})();                      
                         
 const winningCombo = [
     [0, 3, 6],
@@ -125,21 +92,3 @@ const winningCombo = [
     [0, 4, 8],
     [2, 4, 6]
 ];
-
-// const winningCombo = [
-    //     [[0, 0], [1, 0], [2, 0]],
-//     [[0, 1], [1, 1], [2, 1]],
-//     [[0, 2], [1, 2], [2, 2]],
-//     [[0, 0], [0, 1], [0, 2]],
-//     [[1, 0], [1, 1], [1, 2]],
-//     [[2, 0], [2, 1], [2, 2]],
-//     [[0, 0], [1, 1], [2, 2]],
-//     [[0, 2], [1, 1], [2, 0]]
-// ]
-
-const player = (player, marker) => {
-    return {player, marker};
-}
-
-const player1 = player(1, "x");
-const player2 = player(2, "circle");
