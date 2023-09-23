@@ -6,6 +6,26 @@ const createGameboard = (() => {
     const winDialog = document.getElementById("winDialog");
     const drawDialog = document.getElementById("drawDialog");
     const resetButtons = document.querySelectorAll(".reset");
+
+    const noArtInt = document.getElementById("noArtInt");
+    const artInt = document.getElementById("artInt");
+    const restart = document.getElementById("restart");
+
+    noArtInt.addEventListener("click", () => {
+        container.classList.add("noAI");
+        container.classList.remove("withAI");
+        reset();
+    })
+
+    artInt.addEventListener("click", () => {
+        container.classList.add("withAI");
+        container.classList.remove("noAI");
+        reset();
+    })
+
+    restart.addEventListener("click", () => {
+        reset();
+    })
     
     const player1 = player("X");
     const player2 = player("O");
@@ -31,8 +51,7 @@ const createGameboard = (() => {
         
         cell.addEventListener("click", () => {
             if (cell.textContent === "") {
-                // const currentPlayer = playerTurn ? player1 : player2;
-                const currentPlayer = player1;
+                const currentPlayer = playerTurn ? player1 : player2;
                 playerTurn = !playerTurn;
 
                 cell.textContent = currentPlayer.marker;
@@ -42,8 +61,10 @@ const createGameboard = (() => {
                     endGame(currentPlayer);
                 } else if(checkFull()) {
                     isDraw();
-                } else {
+                } else if (container.classList.contains("withAI")){
+                    playerTurn = true;
                     artificalInt(player2);
+
                 }
                 
             }
@@ -68,8 +89,8 @@ const createGameboard = (() => {
         winDialog.showModal();
     }
     
-    const cells = document.querySelectorAll(".cell");
     const reset = () => {
+        const cells = document.querySelectorAll(".cell");
         for (let i = 0; i < cells.length; i++) {
             cells[i].textContent = "";
             gameboard[i] = 0;
@@ -86,6 +107,8 @@ const createGameboard = (() => {
     }
 
     const artificalInt = (currentPlayer) => {
+        const cells = document.querySelectorAll(".cell");
+
         let randomIndex = Math.floor(Math.random()*8);
         while (gameboard[randomIndex] !== 0 && !checkFull()) {
             randomIndex = Math.floor(Math.random()*8);
@@ -102,7 +125,7 @@ const createGameboard = (() => {
         console.log(gameboard);
     }
     
-    return {gameboard, reset};
+    return {gameboard};
 })();                      
                         
 const winningCombo = [
