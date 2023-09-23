@@ -31,17 +31,21 @@ const createGameboard = (() => {
         
         cell.addEventListener("click", () => {
             if (cell.textContent === "") {
-                const currentPlayer = playerTurn ? player1 : player2;
+                // const currentPlayer = playerTurn ? player1 : player2;
+                const currentPlayer = player1;
                 playerTurn = !playerTurn;
 
                 cell.textContent = currentPlayer.marker;
                 board[index] = currentPlayer.marker;
-                
+
                 if (checkWin(gameboard, currentPlayer)) {
                     endGame(currentPlayer);
                 } else if(checkFull()) {
                     isDraw();
+                } else {
+                    artificalInt(player2);
                 }
+                
             }
             
             
@@ -64,8 +68,8 @@ const createGameboard = (() => {
         winDialog.showModal();
     }
     
+    const cells = document.querySelectorAll(".cell");
     const reset = () => {
-        const cells = document.querySelectorAll(".cell");
         for (let i = 0; i < cells.length; i++) {
             cells[i].textContent = "";
             gameboard[i] = 0;
@@ -79,6 +83,23 @@ const createGameboard = (() => {
                 return gameboard[index] === currentPlayer.marker
             })
         })
+    }
+
+    const artificalInt = (currentPlayer) => {
+        let randomIndex = Math.floor(Math.random()*8);
+        while (gameboard[randomIndex] !== 0 && !checkFull()) {
+            randomIndex = Math.floor(Math.random()*8);
+        }
+        if (!checkFull()) {
+            gameboard[randomIndex] = currentPlayer.marker;
+            cells[randomIndex].textContent = currentPlayer.marker;
+        }
+        if (checkWin(gameboard, currentPlayer)) {
+            endGame(currentPlayer);
+        } else if(checkFull()) {
+            isDraw();
+        }
+        console.log(gameboard);
     }
     
     return {gameboard, reset};
