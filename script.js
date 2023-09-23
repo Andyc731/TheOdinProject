@@ -1,18 +1,16 @@
-const container = document.querySelector(".container");
-const winDialog = document.getElementById("winDialog");
-const drawDialog = document.getElementById("drawDialog");
-const reset = document.querySelectorAll(".reset");
-
-
-reset.forEach((item) => {
-    item.addEventListener("click", () => {
-        gameboard.reset();
-        winDialog.close();
-        drawDialog.close();
+const createGameboard = (() => {
+    const container = document.querySelector(".container");
+    const winDialog = document.getElementById("winDialog");
+    const drawDialog = document.getElementById("drawDialog");
+    const resetButtons = document.querySelectorAll(".reset");
+    
+    resetButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            reset();
+            winDialog.close();
+            drawDialog.close();
+        })
     })
-})
-
-const createGameboard = () => {
 
     const gameboard = [
         0, 0, 0,
@@ -84,7 +82,8 @@ const createGameboard = () => {
     }
     
     return {gameboard, reset};
-}
+})();
+
 // for (let i = 0; i < 3; i++) {
     //     const row = document.createElement("div");
     //     row.classList.add("row");
@@ -124,14 +123,14 @@ const createGameboard = () => {
                         // }
                         
                         
-                        const winningCombo = [
-                            [0, 3, 6],
-                            [1, 4, 7],
-                            [2, 5, 8],
-                            [0, 1, 2],
-                            [3, 4, 5],
-                            [6, 7, 8],
-                            [0, 4, 8],
+const winningCombo = [
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 4, 8],
     [2, 4, 6]
 ];
 
@@ -145,7 +144,6 @@ const createGameboard = () => {
 //     [[0, 0], [1, 1], [2, 2]],
 //     [[0, 2], [1, 1], [2, 0]]
 // ]
-const gameboard = createGameboard();
 
 const player = (player, marker) => {
     return {player, marker};
@@ -153,9 +151,3 @@ const player = (player, marker) => {
 
 const player1 = player(1, "x");
 const player2 = player(2, "circle");
-
-
-
-
-console.log(gameboard.gameboard);
-console.log(player1);
