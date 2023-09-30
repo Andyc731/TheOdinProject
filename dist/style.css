@@ -5,6 +5,7 @@ body {
     background-image: url(../images/background.jpg);
     background-size: cover;
     background-position: center 30%;
+    background-attachment: fixed;
     font-family: 'Young Serif', serif;
 }
 
@@ -18,14 +19,20 @@ h1 {
 }
 
 .container {
-    display: flex;
+    display: grid;
+    grid-template-rows: 400px 500px;
     width: 1000px;
     height: 4000px;
     background-color: rgb(255, 255, 255, 0.2);
-    position: fixed;
+    position: relative;
     left: 50%;
     margin-left: -500px;
     justify-content: center;
+}
+
+.hours {
+    background-color: aliceblue;
+    height: 300px;
 }
 
 .intro {
@@ -38,5 +45,5 @@ h1 {
     padding: 40px;
     font-size: 20px;
     line-height: 40px;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
 }
