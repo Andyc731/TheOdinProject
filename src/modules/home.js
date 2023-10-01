@@ -30,7 +30,12 @@ function createHours() {
 }
 
 function createLocation() {
-    
+    const location = document.createElement('div');
+    location.classList.add('location');
+
+    location.textContent = '122 Blah street, NW, Calgary, AB'
+
+    return location;
 }
 
 function createInfoContainer() {
@@ -39,6 +44,7 @@ function createInfoContainer() {
     
     container.appendChild(createIntro());
     container.appendChild(createHours());
+    container.appendChild(createLocation());
 
     return container;
 }
@@ -48,9 +54,27 @@ function createHomepage() {
     
     const header = createHeader();
     content.appendChild(header);
+
+    content.appendChild(createHomeButton());
     
     content.appendChild(createInfoContainer());
     
 };
+
+function createHomeButton() {
+    const homeButton = document.createElement('div');
+    homeButton.classList.add('homeButton');
+    eventListenerForButton(homeButton);
+
+    return homeButton;
+}
+
+function eventListenerForButton(button) {
+    button.addEventListener('click', () => {
+        if (!button.classList.contains('active')) {
+            button.classList.add('active');
+        }
+    })
+}
 
 export default createHomepage;
