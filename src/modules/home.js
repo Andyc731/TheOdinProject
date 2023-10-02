@@ -49,32 +49,56 @@ function createInfoContainer() {
     return container;
 }
 
+function createHomeButton() {
+    const homeButton = document.createElement('div');
+
+    homeButton.classList.add('homeButton');
+
+    return homeButton;
+}
+
+function createMenuButton() {
+    const menuButton = document.createElement('div');
+
+    menuButton.classList.add('menuButton');
+
+    return menuButton;
+}
+
+function createButtonContainer() {
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.classList.add('buttons-container');
+
+    const buttonsArray = [createHomeButton(), createMenuButton()];
+
+    buttonsArray.forEach((button) => {
+        eventListenerForButton(button, buttonsArray);
+        buttonsContainer.appendChild(button);
+    })
+
+    return buttonsContainer;
+}
+
+function eventListenerForButton(button, buttonsArray) {
+    button.addEventListener('click', () => {
+        if (!button.classList.contains('active')) {
+            buttonsArray.forEach((item) => {
+                item === button ? item.classList.add('active') : item.classList.remove('active');
+            })
+        }
+    })
+}
+
 function createHomepage() {
     const content = document.getElementById('content');
     
     const header = createHeader();
     content.appendChild(header);
 
-    content.appendChild(createHomeButton());
+    content.appendChild(createButtonContainer());
     
     content.appendChild(createInfoContainer());
     
 };
-
-function createHomeButton() {
-    const homeButton = document.createElement('div');
-    homeButton.classList.add('homeButton');
-    eventListenerForButton(homeButton);
-
-    return homeButton;
-}
-
-function eventListenerForButton(button) {
-    button.addEventListener('click', () => {
-        if (!button.classList.contains('active')) {
-            button.classList.add('active');
-        }
-    })
-}
 
 export default createHomepage;
