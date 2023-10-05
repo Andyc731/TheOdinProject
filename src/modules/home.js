@@ -38,9 +38,9 @@ function createLocation() {
     return location;
 }
 
-function createInfoContainer() {
+function createHomeContainer() {
     const container = document.createElement('div');
-    container.classList.add('container');
+    container.classList.add('home-container');
     
     container.appendChild(createIntro());
     container.appendChild(createHours());
@@ -51,16 +51,34 @@ function createInfoContainer() {
 
 function createHomeButton() {
     const homeButton = document.createElement('div');
+    
+    homeButton.textContent = 'Home';
+    homeButton.classList.add('active');
+    homeButton.classList.add('buttons');
 
-    homeButton.classList.add('homeButton');
+    homeButton.addEventListener('click', () => {
+        if (!homeButton.classList.contains('active')){
+            eventListenerForButton(homeButton);
+
+        }
+    })
 
     return homeButton;
 }
 
 function createMenuButton() {
     const menuButton = document.createElement('div');
+    
+    menuButton.textContent = 'Menu';
 
-    menuButton.classList.add('menuButton');
+    menuButton.classList.add('buttons');
+
+    menuButton.addEventListener('click', () => {
+        if (!menuButton.classList.contains('active')){
+            eventListenerForButton(menuButton);
+
+        }
+    })
 
     return menuButton;
 }
@@ -72,21 +90,22 @@ function createButtonContainer() {
     const buttonsArray = [createHomeButton(), createMenuButton()];
 
     buttonsArray.forEach((button) => {
-        eventListenerForButton(button, buttonsArray);
         buttonsContainer.appendChild(button);
     })
 
     return buttonsContainer;
 }
 
-function eventListenerForButton(button, buttonsArray) {
-    button.addEventListener('click', () => {
-        if (!button.classList.contains('active')) {
-            buttonsArray.forEach((item) => {
-                item === button ? item.classList.add('active') : item.classList.remove('active');
-            })
+function eventListenerForButton(button) {
+    const buttonsArray = document.querySelectorAll('.buttons');
+
+    buttonsArray.forEach((button) => {
+        if (button !== this) {
+            button.classList.remove('active');
         }
     })
+
+    button.classList.add('active');
 }
 
 function createHomepage() {
@@ -97,7 +116,7 @@ function createHomepage() {
 
     content.appendChild(createButtonContainer());
     
-    content.appendChild(createInfoContainer());
+    content.appendChild(createHomeContainer());
     
 };
 
