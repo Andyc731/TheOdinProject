@@ -1,4 +1,5 @@
 import createHomeContainer from "./home";
+import createMenuContainer from "./menu";
 
 function createHeader() {
     const header = document.createElement('h1');
@@ -41,11 +42,26 @@ function createMenuButton() {
     return menuButton;
 }
 
+function createContactButton() {
+    const contactButton = document.createElement('div');
+    contactButton.textContent = 'Contact';
+    contactButton.classList.add('buttons');
+
+    contactButton.addEventListener('click', () => {
+        if (!contactButton.classList.contains('active')){
+            eventListenerForButton(contactButton);
+
+        }
+    })
+
+    return contactButton;
+}
+
 function createButtonContainer() {
     const buttonsContainer = document.createElement('div');
     buttonsContainer.classList.add('buttons-container');
 
-    const buttonsArray = [createHomeButton(), createMenuButton()];
+    const buttonsArray = [createHomeButton(), createMenuButton(), createContactButton()];
 
     buttonsArray.forEach((button) => {
         buttonsContainer.appendChild(button);
@@ -75,6 +91,8 @@ function createPage() {
     content.appendChild(createButtonContainer());
     
     content.appendChild(createHomeContainer());
+
+    content.appendChild(createMenuContainer());
     
 };
 

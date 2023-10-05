@@ -1,5 +1,5 @@
-import createHomepage from './modules/home';
+import createPage from './modules/page';
 
-createHomepage();
+createPage();
 
 console.log("hello");
