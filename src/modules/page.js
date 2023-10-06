@@ -1,5 +1,6 @@
 import createHomeContainer from "./home";
 import createMenuContainer from "./menu";
+import createContactContainer from "./contact";
 
 function createHeader() {
     const header = document.createElement('h1');
@@ -50,7 +51,7 @@ function createContactButton() {
     contactButton.addEventListener('click', () => {
         if (!contactButton.classList.contains('active')){
             eventListenerForButton(contactButton);
-
+            displayActive('contact');
         }
     })
 
@@ -85,31 +86,34 @@ function eventListenerForButton(button) {
 function displayActive(tab) {
     const home = document.querySelector('.home-container');
     const menu = document.querySelector('.menu-container');
-
+    const contact = document.querySelector('.contact-container');
 
     if (tab === 'home') {
         home.style.display = 'grid';
         menu.style.display = 'none';
+        contact.style.display = 'none';
+
     } else if (tab === 'menu') {
         home.style.display = 'none';
         menu.style.display = 'grid';
+        contact.style.display = 'none';
     } else {
-
+        home.style.display = 'none'
+        menu.style.display = 'none'
+        contact.style.display = 'grid';
     }
 }
 
 function createPage() {
     const content = document.getElementById('content');
-    
     const header = createHeader();
+    
     content.appendChild(header);
 
     content.appendChild(createButtonContainer());
-    
     content.appendChild(createHomeContainer());
-
     content.appendChild(createMenuContainer());
-    
+    content.appendChild(createContactContainer());
 };
 
 export default createPage;
