@@ -18,7 +18,7 @@ function createHomeButton() {
     homeButton.addEventListener('click', () => {
         if (!homeButton.classList.contains('active')){
             eventListenerForButton(homeButton);
-
+            displayActive('home');
         }
     })
 
@@ -35,7 +35,7 @@ function createMenuButton() {
     menuButton.addEventListener('click', () => {
         if (!menuButton.classList.contains('active')){
             eventListenerForButton(menuButton);
-
+            displayActive('menu');
         }
     })
 
@@ -80,6 +80,22 @@ function eventListenerForButton(button) {
     })
 
     button.classList.add('active');
+}
+
+function displayActive(tab) {
+    const home = document.querySelector('.home-container');
+    const menu = document.querySelector('.menu-container');
+
+
+    if (tab === 'home') {
+        home.style.display = 'grid';
+        menu.style.display = 'none';
+    } else if (tab === 'menu') {
+        home.style.display = 'none';
+        menu.style.display = 'grid';
+    } else {
+
+    }
 }
 
 function createPage() {
