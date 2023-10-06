@@ -18,7 +18,9 @@ h1 {
     margin: 0;
 }
 
-.home-container {
+.home-container,
+.menu-container,
+.contact-container {
     display: grid;
     grid-template-rows: repeat(3, 400px);
     width: 1000px;
@@ -73,15 +75,13 @@ h1 {
 
 .menu-container {
     display: none;
-    width: 1000px;
-    height: 1200px;
-    position: relative;
-    left: 50%;
-    margin-left: -500px;
-    background-color: rgb(0, 0, 0, 0.7);
     grid-template-columns: 350px 350px;
     gap: 50px;
-    justify-content: center;
+    padding-top: 100px;
+}
+
+.contact-container {
+    display: none;
 }
 
 .menu-container img {
@@ -90,3 +90,4 @@ h1 {
     margin: 0;
     padding: 0;
 }
+
