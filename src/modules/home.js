@@ -7,15 +7,23 @@ function createIntro() {
     return intro;
 }
 
+function createHeader(text, headerClass) {
+    const header = document.createElement('div');
+    header.classList.add(headerClass);
+    header.textContent = text;
+
+    return header;
+}
+
 function createHours() {
     const hourContainer = document.createElement('div');
     hourContainer.classList.add('hours');
+
+    hourContainer.appendChild(createHeader('Hours', 'hour-header'));
     
     const text = "Monday-Friday 9am-9pm. Saturday 11am-8pm. Sunday 11am-8pm".split(".");
     text.forEach((item) => {
-        const hours = document.createElement('p');
-        hours.textContent = item;
-        hourContainer.appendChild(hours);
+        hourContainer.appendChild(createText(item));
     })
     
     return hourContainer;
@@ -25,9 +33,19 @@ function createLocation() {
     const location = document.createElement('div');
     location.classList.add('location');
 
-    location.textContent = '122 Blah street, NW, Calgary, AB'
+    location.appendChild(createHeader('Location', 'location-header'));
+    
+
+    location.appendChild(createText('122 Blah street, NW, Calgary, AB'));
 
     return location;
+}
+
+function createText(text) {
+    const textContainer = document.createElement('p');
+    textContainer.textContent = text;
+
+    return textContainer;
 }
 
 function createHomeContainer() {
