@@ -19,7 +19,7 @@ function createHomeButton() {
     homeButton.addEventListener('click', () => {
         if (!homeButton.classList.contains('active')){
             eventListenerForButton(homeButton);
-            displayActive('home');
+            displayActive('home-container');
         }
     })
 
@@ -36,7 +36,7 @@ function createMenuButton() {
     menuButton.addEventListener('click', () => {
         if (!menuButton.classList.contains('active')){
             eventListenerForButton(menuButton);
-            displayActive('menu');
+            displayActive('menu-container');
         }
     })
 
@@ -51,7 +51,7 @@ function createContactButton() {
     contactButton.addEventListener('click', () => {
         if (!contactButton.classList.contains('active')){
             eventListenerForButton(contactButton);
-            displayActive('contact');
+            displayActive('contact-container');
         }
     })
 
@@ -83,25 +83,16 @@ function eventListenerForButton(button) {
     button.classList.add('active');
 }
 
-function displayActive(tab) {
+function displayActive(activeClass) {
     const home = document.querySelector('.home-container');
     const menu = document.querySelector('.menu-container');
     const contact = document.querySelector('.contact-container');
 
-    if (tab === 'home') {
-        home.style.display = 'grid';
-        menu.style.display = 'none';
-        contact.style.display = 'none';
+    const tabArray = [home, menu, contact];
 
-    } else if (tab === 'menu') {
-        home.style.display = 'none';
-        menu.style.display = 'grid';
-        contact.style.display = 'none';
-    } else {
-        home.style.display = 'none'
-        menu.style.display = 'none'
-        contact.style.display = 'grid';
-    }
+    tabArray.forEach((tab) => {
+        tab.classList.contains(activeClass) ? tab.style.display = 'grid' : tab.style.display = 'none';
+    })
 }
 
 function createPage() {
