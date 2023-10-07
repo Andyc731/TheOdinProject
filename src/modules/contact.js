@@ -52,7 +52,7 @@ function createContact(name, position, phoneNum, email) {
 
 function createDiv(contactClass, content) {
     const contactDiv = document.createElement('div');
-    contactDiv.classList.add('contact-info', `${contactClass}`);
+    contactDiv.classList.add('contact-info', contactClass);
     contactDiv.textContent = content;
 
     return contactDiv;
