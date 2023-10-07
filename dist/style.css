@@ -34,7 +34,9 @@ h1 {
 
 .hours,
 .location,
-.intro {
+.intro,
+.contact,
+.contact-header {
     color: black;
     background-color: rgb(255, 255, 255, 0.7);
     border-radius: 20px;
@@ -82,6 +84,7 @@ h1 {
 
 .contact-container {
     display: none;
+    grid-template-rows: 200px repeat(3, 280px);
 }
 
 .menu-container img {
@@ -91,3 +94,23 @@ h1 {
     padding: 0;
 }
 
+.contact {
+    height: 120px;
+}
+
+.contact-info.name {
+    font-size: 32px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.contact-info {
+    font-size: 16px;
+    margin-top: -10px;
+}
+
+.contact-header {
+    text-align: center;
+    height: 40px;
+    font-size: 50px;
+}
