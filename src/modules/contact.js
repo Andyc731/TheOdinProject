@@ -1,6 +1,7 @@
 
 function createContactHeader() {
     const header = document.createElement('div');
+    header.classList.add('contact-header');
     header.textContent = 'Contact Us';
 
     return header;
@@ -17,38 +18,44 @@ function createContactContainer() {
         'Lovely Man',
         '333-444-5555',
         'baekjongwonsemail@baekjongwon.com'
-        ));
+    ));
 
+    contactContainer.appendChild(createContact(
+        'Gordon Ramsay',
+        'Waiter',
+        '444-333-2222',
+        'gordonramsaysemail@gordonramsay.com'
+    ))
+
+    contactContainer.appendChild(createContact(
+        'Patrick',
+        'Phone Duty',
+        '222-444-3333',
+        'thisispatrick@thisispatrick.com'
+    ))
+    
     return contactContainer;
 }
 
 function createContact(name, position, phoneNum, email) {
-    const contactInfo = document.createElement('div');
-    contactInfo.classList.add('contactInfo');
+    const contact = document.createElement('div');
+    contact.classList.add('contact');
 
-    const nameDiv = document.createElement('div');
-    nameDiv.classList.add('contact', 'name');
-    nameDiv.textContent = name;
+    contact.appendChild(createDiv('name', name));
+    contact.appendChild(createDiv('position', position));
+    contact.appendChild(createDiv('phoneNum', phoneNum));
+    contact.appendChild(createDiv('email', email));
 
-    const positionDiv = document.createElement('div');
-    positionDiv.classList.add('contact', 'position');
-    positionDiv.textContent = position;
+    return contact;
 
-    const phoneNumDiv = document.createElement('div');
-    phoneNumDiv.classList.add('contact', 'phoneNum');
-    phoneNumDiv.textContent = phoneNum;
+}
 
-    const emailDiv = document.createElement('div');
-    emailDiv.classList.add('contact', 'email');
-    emailDiv.textContent = email;
+function createDiv(contactClass, content) {
+    const contactDiv = document.createElement('div');
+    contactDiv.classList.add('contact-info', `${contactClass}`);
+    contactDiv.textContent = content;
 
-    contactInfo.appendChild(nameDiv);
-    contactInfo.appendChild(positionDiv);
-    contactInfo.appendChild(phoneNumDiv);
-    contactInfo.appendChild(emailDiv);
-
-    return contactInfo;
-
+    return contactDiv;
 }
 
 export default createContactContainer;
