@@ -1,0 +1,16 @@
+.header,
+.sidebar,
+.content {
+    height: 100px;
+    width: 100px;
+    background-color: blue;
+}
+
+.header {
+    grid-column: 1, 3;
+}
+
+#page {
+    display: grid;
+    grid-template: 200px 300px / 300px 1fr;
+}
