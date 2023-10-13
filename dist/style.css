@@ -6,8 +6,32 @@ body {
 }
 
 .header {
+    display: grid;
+    grid-template-columns: 300px repeat(4, 1fr);
     grid-column: 1 / 3;
     background-color: aqua;
+}
+
+.tab {
+    text-align: center;
+    padding-top: 25px;
+
+}
+
+.todo,
+.addTag,
+.projects {
+    padding-top: 30px;
+    padding-left: 40px;
+}
+
+.active {
+    background-color: beige;
+}
+
+.logo {
+    text-align: start;
+    padding-left: 50px;
 }
 
 .content {
