@@ -7,7 +7,13 @@ function createPage() {
                 eventListenerForTab(tab);
             }
         })
-})
+    })
+
+    const addTodoDialog = document.querySelector('#addTodoDialog');
+    const addTodo = document.querySelector('.addTodo');
+    addTodo.addEventListener('click', () => {
+        addTodoDialog.showModal();
+    })
 }
 
 function eventListenerForTab(tab) {
