@@ -12,7 +12,8 @@ body {
     background-color: aqua;
 }
 
-.tab {
+.tab,
+.logo {
     text-align: center;
     padding-top: 25px;
 
