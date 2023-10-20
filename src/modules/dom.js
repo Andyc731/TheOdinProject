@@ -1,7 +1,17 @@
 function createPage() {
-    const tabs = document.querySelectorAll('.tab');
-    const addTodoButton = document.querySelector('.addTodoButton');
+    createTabs();
+    createContent();
+}
 
+function createContent() {
+    const contentContainer = document.querySelector('.content');
+    contentContainer.appendChild(createAddTodo());
+
+    return contentContainer;
+}
+
+function createTabs() {
+    const tabs = document.querySelectorAll('.tab');
     tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
             if (!tab.classList.contains('active')) {
@@ -9,34 +19,62 @@ function createPage() {
             }
         })
     })
+}
 
-    const addTodoDialog = document.querySelector('#addTodoDialog');
-    const addTodo = document.querySelector('.addTodo');
-    addTodo.addEventListener('click', () => {
-        addTodoDialog.showModal();
+function createAddTodo() {
+    const addTodo = document.createElement('div');
+    addTodo.classList.add('todo', 'addTodo');
+
+    addTodo.textContent = '+ Add Todo';
+
+    showDialogOnClick(addTodo, 'addTodoDialog');
+
+    
+    
+    return addTodo;
+}
+
+function dialogButtonEventListener() {
+    const addTodoButton = document.querySelector('.addTodoButton');
+    addTodoButton.addEventListener('click', () => {
+        const title = document.getElementById('title').value;
+        
+        if (title === '') return;
+    
+        const todo = createTodo(
+            title,
+            document.getElementById('description').value,
+            document.getElementById('dueDate').value,
+            )
+            
+            loadTodo(todo);
+            addTodoDialog.close();
+            
     })
 
-    addTodoDialog.addEventListener('click', e => {
-        const dialogDimensions = addTodoDialog.getBoundingClientRect()
+}
+
+
+    
+function showDialogOnClick(div, dialogID) {
+    const dialog = document.getElementById(dialogID);
+    div.addEventListener('click', () => {
+        dialog.showModal();
+    })
+
+    dialog.addEventListener('click', e => {
+        const dialogDimensions = dialog.getBoundingClientRect()
         if (
             e.clientX < dialogDimensions.left ||
             e.clientX > dialogDimensions.right ||
             e.clientY < dialogDimensions.top ||
             e.clientY > dialogDimensions.bottom
         ) {
-            addTodoDialog.close();
+            dialog.close();
         }
     })
 
-    addTodoButton.addEventListener('click', () => {
-        console.log(document.getElementById('dueDate').value);
-        const todo = createTodo(
-            document.getElementById('title').value,
-            document.getElementById('description').value,
-            document.getElementById('dueDate').value,
-        )
-        loadTodo(todo);
-    })
+    dialogButtonEventListener();
 }
 
 function eventListenerForTab(tab) {
