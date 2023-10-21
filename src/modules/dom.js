@@ -1,12 +1,7 @@
-function createPage() {
-    createTabs();
-    createContent();
-}
-
 function createContent() {
     const contentContainer = document.querySelector('.content');
     contentContainer.appendChild(createAddTodo());
-
+    
     return contentContainer;
 }
 
@@ -24,12 +19,9 @@ function createTabs() {
 function createAddTodo() {
     const addTodo = document.createElement('div');
     addTodo.classList.add('todo', 'addTodo');
-
     addTodo.textContent = '+ Add Todo';
-
-    showDialogOnClick(addTodo, 'addTodoDialog');
-
     
+    showDialogOnClick(addTodo, 'addTodoDialog');
     
     return addTodo;
 }
@@ -40,52 +32,49 @@ function dialogButtonEventListener() {
         const title = document.getElementById('title').value;
         
         if (title === '') return;
-    
+        
         const todo = createTodo(
             title,
             document.getElementById('description').value,
             document.getElementById('dueDate').value,
-            )
-            
-            loadTodo(todo);
-            addTodoDialog.close();
-            
-    })
+        )
 
+        loadTodo(todo);
+        addTodoDialog.close();
+        console.log(document.getElementById('dueDate').value === '');
+    })   
 }
 
-
-    
 function showDialogOnClick(div, dialogID) {
     const dialog = document.getElementById(dialogID);
     div.addEventListener('click', () => {
-        dialog.showModal();
+    dialog.showModal();
     })
 
     dialog.addEventListener('click', e => {
-        const dialogDimensions = dialog.getBoundingClientRect()
-        if (
-            e.clientX < dialogDimensions.left ||
-            e.clientX > dialogDimensions.right ||
-            e.clientY < dialogDimensions.top ||
-            e.clientY > dialogDimensions.bottom
+    const dialogDimensions = dialog.getBoundingClientRect()
+    if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
         ) {
             dialog.close();
         }
     })
-
+    
     dialogButtonEventListener();
 }
 
 function eventListenerForTab(tab) {
     const buttonsArray = document.querySelectorAll('.tab');
-
+    
     buttonsArray.forEach((tab) => {
         if (tab !== this) {
             tab.classList.remove('active');
         }
     })
-
+    
     tab.classList.add('active');
 }
 
@@ -98,10 +87,14 @@ function loadTodo(todo) {
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
     todoDiv.textContent = todo.title;
+    
+    content.insertBefore(todoDiv, content.lastChild);
+    console.log(content.outerHTML);
+}
 
-    content.appendChild(todoDiv);
-
-
+function createPage() {
+    createTabs();
+    createContent();
 }
 
 export default createPage;
