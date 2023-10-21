@@ -28,6 +28,7 @@ function createAddTodo() {
 
 function dialogButtonEventListener() {
     const addTodoButton = document.querySelector('.addTodoButton');
+    const form = document.getElementById('todoForm');
     addTodoButton.addEventListener('click', () => {
         const title = document.getElementById('title').value;
         
@@ -41,8 +42,26 @@ function dialogButtonEventListener() {
 
         loadTodo(todo);
         addTodoDialog.close();
-        console.log(document.getElementById('dueDate').value === '');
+        form.reset();
     })   
+}
+
+function compareDates(todoDate) {
+    const today = new Date();
+    const week = new Date(today)
+    week.setDate(week.getDate() + 7);
+    const month = new Date(today);
+    month.setDate(month.getDate() + 30);
+
+    if (dateToString(today) === todoDate) return 'today';
+    if (dateToString(today) < todoDate < dateToString(week)) return 'week';
+    if (dateToString(today) < todoDate < dateToString(month)) return 'month';
+    
+}
+
+function dateToString(date) {
+    return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+
 }
 
 function showDialogOnClick(div, dialogID) {
@@ -89,7 +108,7 @@ function loadTodo(todo) {
     todoDiv.textContent = todo.title;
     
     content.insertBefore(todoDiv, content.lastChild);
-    console.log(content.outerHTML);
+    console.log(todo.dueDate);
 }
 
 function createPage() {
