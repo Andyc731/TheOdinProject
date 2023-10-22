@@ -15,12 +15,12 @@
         <div class="tab month">Month</div>
     </div>
     <div class="sidebar">
-        <div class="todoTag">Todo</div>
-        <div class="addTag">+ Add a tag</div>
-        <div class="projects">Projects</div>
+        <div class="tag todoTag">Todo</div>
+        <div class="tag addTag">+ Add a tag</div>
+        <div class="tag projects">Projects</div>
     </div>
     <div class="content">
-        <div class="todo">Try to have a great day</div>
+        <div class="todo today">Try to have a great day</div>
     </div>
 
     <dialog id="addTagDialog">
@@ -31,12 +31,17 @@
     </dialog>
 
     <dialog id="addTodoDialog">
-        <form action="" method="get">
+        <form action="" method="get" id="todoForm">
             <input type="text" id="title" name="title" placeholder="Title">
             <input type="text" id="description" name="description" placeholder="Description">
             <label for="dueDate">Due:</label>
             <input type="date" id="dueDate" name="dueDate">
-            <button type="reset" class="addTodoButton">Add</button>
+            <select name="priority" id="priority">
+                <option value="low" selected>Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+            </select>
+            <button type="button" class="addTodoButton">Add</button>
         </form>
         
     </dialog>

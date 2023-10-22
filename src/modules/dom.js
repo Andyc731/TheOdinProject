@@ -14,6 +14,7 @@ function createTabs() {
     home.addEventListener('click', () => {
         if (!home.classList.contains('active')) {
             eventListenerForTab(home);
+            displayTodo('todo');
         }
     })
 
@@ -61,13 +62,17 @@ function dialogButtonEventListener() {
     const addTodoButton = document.querySelector('.addTodoButton');
     addTodoButton.addEventListener('click', () => {
         const title = document.getElementById('title').value;
-        
-        if (title === '') return;
+        const description = document.getElementById('description').value;
+        const dueDate = document.getElementById('dueDate').value;
+        const priority = document.getElementById('priority').value;
+
+        if (title === '' || dueDate === '') return;
         
         const todo = createTodo(
             title,
-            document.getElementById('description').value,
-            document.getElementById('dueDate').value,
+            description,
+            dueDate,
+            priority
         )
 
         loadTodo(todo);
@@ -76,17 +81,21 @@ function dialogButtonEventListener() {
     })
 }
 
-function compareDates(todoDate) {
+function dueDateClassArray(todoDate) {
     const today = new Date();
     const week = new Date(today)
     week.setDate(week.getDate() + 7);
     const month = new Date(today);
     month.setDate(month.getDate() + 30);
 
+    const classArray = []
+
     if (todoDate < dateToString(today)) return;
-    if (dateToString(today) === todoDate) return 'today';
-    if (todoDate < dateToString(week)) return 'week';
-    if (todoDate < dateToString(month)) return 'month';
+    if (todoDate === dateToString(today)) classArray.push('today');
+    if (todoDate < dateToString(week)) classArray.push('week');
+    if (todoDate < dateToString(month)) classArray.push('month');
+
+    return classArray;
     
 }
 
@@ -135,7 +144,11 @@ function createTodo(title, description, dueDate, priority, tags = []) {
 function loadTodo(todo) {
     const content = document.querySelector('.content');
     const todoDiv = document.createElement('div');
-    todoDiv.classList.add('todo', compareDates(todo.dueDate));
+    todoDiv.classList.add('todo');
+    dueDateClassArray(todo.dueDate).forEach((item) => {
+        todoDiv.classList.add(item);
+    })
+
     todoDiv.textContent = todo.title;
     
     content.insertBefore(todoDiv, content.lastChild);
