@@ -19,9 +19,8 @@ body {
 
 }
 
-.todoTag,
-.addTag,
-.projects {
+.tag,
+.addTag {
     margin: 30px;
     padding: 10px;
 }
@@ -43,14 +42,15 @@ body {
     background-color: brown;
 }
 
-.todo {
+.todo,
+.addTodo {
     margin: 30px;
     background-color: tan;
     padding: 14px;
     padding-left: 13px;
 }
 
-.addTag:hover,
+.tag:hover,
 .addTodo:hover {
     cursor: pointer;
     background-color: skyblue;
