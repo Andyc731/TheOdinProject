@@ -1,51 +1,11 @@
+import createTabs from "./tab";
+import createTags from "./tag";
+
 function createContent() {
     const contentContainer = document.querySelector('.content');
     contentContainer.appendChild(createAddTodo());
     
     return contentContainer;
-}
-
-function createTabs() {
-    const home = document.querySelector('.tab.home');
-    const today = document.querySelector('.tab.today');
-    const week = document.querySelector('.tab.week');
-    const month = document.querySelector('.tab.month');
-
-    home.addEventListener('click', () => {
-        if (!home.classList.contains('active')) {
-            eventListenerForTab(home);
-            displayTodo('todo');
-        }
-    })
-
-    today.addEventListener('click', () => {
-        if (!today.classList.contains('active')) {
-            eventListenerForTab(today);
-            displayTodo('today')
-        }
-    })
-
-    week.addEventListener('click', () => {
-        if (!week.classList.contains('active')) {
-            eventListenerForTab(week);
-            displayTodo('week')
-        }
-    })
-
-    month.addEventListener('click', () => {
-        if (!month.classList.contains('active')) {
-            eventListenerForTab(month);
-            displayTodo('month');
-        }
-    })
-}
-
-function displayTodo(tabClass) {
-    const todoArray = document.querySelectorAll('.todo');
-
-    todoArray.forEach((todo) => {
-        todo.classList.contains(tabClass) ? todo.style.display = 'block' : todo.style.display = 'none';
-    })
 }
 
 function createAddTodo() {
@@ -124,19 +84,6 @@ function showDialogOnClick(div, dialogID) {
     dialogButtonEventListener();
 }
 
-function eventListenerForTab(currentTab) {
-    const tabsArray = document.querySelectorAll('.tab');
-    
-    tabsArray.forEach((tab) => {
-        if (tab !== this) {
-            tab.classList.remove('active');
-        }
-    })
-    
-    currentTab.classList.add('active');
-
-}
-
 function createTodo(title, description, dueDate, priority, tags = []) {
     return {title, description, dueDate, priority, tags}
 }
@@ -157,6 +104,7 @@ function loadTodo(todo) {
 function createPage() {
     createTabs();
     createContent();
+    createTags();
 }
 
 export default createPage;
