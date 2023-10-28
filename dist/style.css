@@ -51,7 +51,8 @@ body {
 }
 
 .tag:hover,
-.addTodo:hover {
+.addTodo:hover,
+.addTag:hover {
     cursor: pointer;
     background-color: skyblue;
 }
