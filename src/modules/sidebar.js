@@ -1,4 +1,6 @@
-function tagsOnClick(tags) {    
+function tagsOnClick() {  
+    const tags = document.querySelectorAll('.tag');
+  
     tags.forEach((tag) => {
         tag.addEventListener('click', () => {
             setActiveOnClick(tag);
@@ -42,6 +44,7 @@ function dialogButtonOnClick() {
     addTodoButton.addEventListener('click', () => {
         const name = document.getElementById('tag-name').value;
         sidebar.insertBefore(createTag(name), addTag);
+        tagsOnClick();
 
         document.getElementById('addTagDialog').close();
         document.getElementById('tagForm').reset();
@@ -53,13 +56,11 @@ function createTag(name) {
     div.textContent = name;
     div.classList.add(name, 'tag');
 
-    const tags = document.querySelectorAll('.tag');
-    tagsOnClick(tags);
-
     return div;
 }
 
 function tag() {
+    tagsOnClick();
     showDialogOnClick(document.querySelector('.addTag'), 'addTagDialog');
 }
 
