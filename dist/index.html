@@ -15,7 +15,7 @@
         <div class="tab month">Month</div>
     </div>
     <div class="sidebar">
-        <div class="tag todoTag">Todo</div>
+        <div class="tag todoTag active">Todo</div>
         <div class="addTag">+ Add a tag</div>
         <div class="tag projects">Projects</div>
     </div>
@@ -24,9 +24,9 @@
     </div>
 
     <dialog id="addTagDialog">
-        <form action="" method="get">
+        <form action="" method="get" id="tagForm">
             <input type="text" id="tag-name" name="tag-name" placeholder="Tag Name">
-
+            <button type="button" class="addTagButton">Add</button>
         </form>
     </dialog>
 
@@ -41,6 +41,7 @@
                 <option value="medium">Medium Priority</option>
                 <option value="high">High Priority</option>
             </select>
+            <span>Tags:</span>
             <button type="button" class="addTodoButton">Add</button>
         </form>
         
