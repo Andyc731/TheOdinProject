@@ -51,17 +51,35 @@ function dialogButtonOnClick() {
     })
 }
 
+function tagToForm(tag) {
+    const form = document.getElementById('todoForm');
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    const addButton = document.querySelector('.addTodoButton');
+
+    label.setAttribute('for', tag);
+    label.textContent = tag;
+
+    input.setAttribute('type', 'checkbox');
+    input.setAttribute('id', tag);
+    input.setAttribute('value', tag);
+
+    form.insertBefore(input, addButton);
+    form.insertBefore(label, addButton);
+}
+
 function createTag(name) {
     const div = document.createElement('div');
     div.textContent = name;
     div.classList.add(name, 'tag');
 
+    tagToForm(name);
     return div;
 }
 
-function tag() {
+function createSidebar() {
     tagsOnClick();
     showDialogOnClick(document.querySelector('.addTag'), 'addTagDialog');
 }
 
-export default tag;
+export default createSidebar;
