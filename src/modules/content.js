@@ -1,6 +1,3 @@
-import createTabs from "./tab";
-import tag from "./sidebar";
-
 function createContent() {
     const contentContainer = document.querySelector('.content');
     contentContainer.appendChild(createAddTodo());
