@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+}
+
+.image.active {
+    visibility: visible;
+}
+
+.container {
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: -2;
+    width: 3000px;
+}
+
+.next-button,
+.previous-button {
+    position: relative;
+    top:105px;
+}
+
+.next-button {
+    left: 430px;
+}
+
+.previous-button {
+    left: 10px;
+}
+
+.frame {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    width: 480px;
+    height: 300px;
+    z-index: -1;
+}
