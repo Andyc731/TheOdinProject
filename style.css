@@ -41,3 +41,19 @@ img {
     height: 300px;
     z-index: -1;
 }
+
+.dot {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    border-radius: 10px;
+}
+
+.dot-container {
+    display: flex;
+    width: 400px;
+    position: absolute;
+    left: 180px;
+    top: 230px;
+    gap: 10px;
+}
