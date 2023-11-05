@@ -6,24 +6,24 @@ const IMAGEWIDTH = 484;
 next.addEventListener('click', () => {
     const containerStyle = window.getComputedStyle(container);
     const containerLeft = containerStyle.getPropertyValue('left');
-    console.log(calculateLeft(parseFloat(containerLeft.replace('px', "")))*IMAGEWIDTH);
 
-    console.log(containerLeft);
-    if (containerLeft <= '-1452px') {
-        container.style.left = '0px';
-        return;
+    if (calculateLeft(parseFloat(containerLeft.replace('px', "")))) {
+        if (containerLeft <= '-1452px') {
+            container.style.left = '0px';
+            return;
+        }
+        const newLeftValue = parseFloat(containerLeft.replace('px', "")) - IMAGEWIDTH;
+        container.style.left = `${newLeftValue}px`;
     }
 
-    const newLeftValue = calculateLeft(parseFloat(containerLeft.replace('px', "")))*IMAGEWIDTH;
 
-    container.style.left = `${newLeftValue}px`;
+
 })
 
 previous.addEventListener('click', () => {
     const containerStyle = window.getComputedStyle(container);
     const containerLeft = containerStyle.getPropertyValue('left');
 
-    console.log(containerLeft);
     if (containerLeft === '0px') {
         container.style.left = '-1452px';
         return;
@@ -36,7 +36,8 @@ previous.addEventListener('click', () => {
 function calculateLeft(currentLeft) {
     const numOfImages = 4;
     for (let i = 0; i > -numOfImages; i--) {
-        if (currentLeft >= (i * IMAGEWIDTH)) return i-1;
+        if (currentLeft === (i * IMAGEWIDTH)) return true;
     }
+    return false;
 
 }
