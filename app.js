@@ -4,7 +4,7 @@ const previous = document.querySelector('.previous-button');
 const dotsArray = document.querySelectorAll('.dot');
 const IMAGEWIDTH = 484;
 const NUMOFIMAGES = 4;
-
+const INDEXOFFSET = 1;
 next.addEventListener('click', () => {
     const containerStyle = window.getComputedStyle(container);
     const containerLeft = parseFloat(containerStyle.getPropertyValue('left').replace('px', ''));
@@ -15,23 +15,26 @@ next.addEventListener('click', () => {
             setActive(dotsArray[0]);
             return;
         }
+        setActive(dotsArray[calculateIndex(containerLeft) + INDEXOFFSET]);
         const newLeftValue = containerLeft - IMAGEWIDTH;
         container.style.left = `${newLeftValue}px`;
-        setActive(dotsArray[calculateIndex(containerLeft)]);
     }
 })
 
 previous.addEventListener('click', () => {
     const containerStyle = window.getComputedStyle(container);
-    const containerLeft = containerStyle.getPropertyValue('left');
+    const containerLeft = parseFloat(containerStyle.getPropertyValue('left').replace('px', ''));
 
-    if (containerLeft === '0px') {
-        container.style.left = '-1452px';
-        return;
+     if (calculateLeft(containerLeft)) {
+        if (containerLeft === 0) {
+            container.style.left = '-1452px';
+            setActive(dotsArray[3])
+            return;
+        }
+        const newLeftValue = containerLeft + IMAGEWIDTH;
+        container.style.left = `${newLeftValue}px`;
+        setActive(dotsArray[calculateIndex(containerLeft) - INDEXOFFSET]);
     }
-    const newLeftValue = parseInt(containerLeft.replace(/[^0-9^-]/g, "")) + IMAGEWIDTH;
-
-    container.style.left = `${newLeftValue}px`;
 
 })
 
@@ -58,7 +61,5 @@ function setActive(currentDot) {
 }
 
 function calculateIndex(currentLeft) {
-    for (let i = 0; i < NUMOFIMAGES; i++) {
-        if (currentLeft > (-i *IMAGEWIDTH)) return i;
-    }
+    return (currentLeft / -IMAGEWIDTH);
 }
