@@ -21,7 +21,7 @@ img {
 .next-button,
 .previous-button {
     position: relative;
-    top:105px;
+    top:115px;
 }
 
 .next-button {
@@ -45,7 +45,7 @@ img {
 .dot {
     width: 20px;
     height: 20px;
-    background-color: blue;
+    background-color: white;
     border-radius: 10px;
 }
 
@@ -56,4 +56,8 @@ img {
     left: 180px;
     top: 230px;
     gap: 10px;
+}
+
+.active {
+    background-color: blue;
 }
