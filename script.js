@@ -21,11 +21,6 @@ submit.addEventListener("click", () => {
     const pages = document.querySelector("#pages");
     const read = document.querySelector("#read");
 
-    // if (title.value === "" || author.value === "" || pages.value === "") {
-    //     return;
-    // }
-
-    console.log(formValidation(title,author,pages));
     if (formValidation(title, author, pages)) {
         return;
     }
