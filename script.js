@@ -21,7 +21,12 @@ submit.addEventListener("click", () => {
     const pages = document.querySelector("#pages");
     const read = document.querySelector("#read");
 
-    if (title.value === "" || author.value === "" || pages.value === "") {
+    // if (title.value === "" || author.value === "" || pages.value === "") {
+    //     return;
+    // }
+
+    console.log(formValidation(title,author,pages));
+    if (formValidation(title, author, pages)) {
         return;
     }
 
@@ -38,6 +43,21 @@ submit.addEventListener("click", () => {
     dialog.close();
 })
 
+
+
+function formValidation(title, author, pages) {
+    const inputArray = [title, author, pages];
+    let isEmpty= false;
+    inputArray.forEach(item => {
+        if (item.value === "") {
+            item.setAttribute('placeholder', 'This is required');
+            isEmpty = true;
+        }
+    })
+
+    return isEmpty;
+}
+
 function handleClick(cb) {
     cb.value === "false" ? cb.value = "true" : cb.value = "false";
 }
@@ -52,10 +72,6 @@ function Book(title, author, pages, read) {
 function addBookToLibrary(book) {
     myLibrary.push(book);
 }
-
-
-const blah2 = new Book(1, 2, 3, 4);
-const blah3 = new Book(2, 3, 4, 5); 
 
 
 function displayBook() {
@@ -107,6 +123,3 @@ function randomNum() {
 for (let i = 0; i < myLibrary.length; i++) {
     displayBook();
 }
-
-console.log(myLibrary);
-console.log(myLibrary[myLibrary.length - 1]);
