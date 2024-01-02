@@ -7,46 +7,58 @@ const myForm = document.getElementById('form');
 
 const inputs = [email, country, zip, password];
 
+inputs.forEach(item => {
+    if (checkEmpty(item)) {
+        item.setCustomValidity('Is empty');
+    }
+})
+
 myForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    window.alert("high five");
 })
 
 email.addEventListener('input', () => {
-    if (email.validity.typeMismatch) {
-        email.setCustomValidity("ex: example@example.com");
-        email.reportValidity();
-    } else {
-        email.setCustomValidity('');
-    }
+    checkValidity(
+        email,
+        "ex: example@example.com",
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
 })
 
 country.addEventListener('input', () => {
-    if (!country.value.match(/^[a-zA-Z]{2,}/)) {
-        country.setCustomValidity('ex: Canada');
-        country.reportValidity();
-    } else {
-        country.setCustomValidity('');
-    }
+    checkValidity(
+        country,
+        'ex: Canada',
+        /^[a-zA-Z]{2,}/
+    )
 })
 
 zip.addEventListener('input', () => {
-    if (!zip.value.match(/(^\d{5}$)|(^\d{5}-\d{4}$)/)) {
-        zip.setCustomValidity('ex: 11111');
-        zip.reportValidity();
-    } else {
-        zip.setCustomValidity('');
-    }
+    checkValidity(
+        zip,
+        'ex: 11111',
+        /(^\d{5}$)|(^\d{5}-\d{4}$)/
+    )
 })
 
 password.addEventListener('input', () => {
-    if (!password.value.match(/^(?=.*[0-9])(?=.*[!@#$%^&*,.])[A-Za-z\d@$!%*?&,.]{6,20}$/)){
-        password.setCustomValidity('must include lowercase letter, uppercase letter, number, and special character. length 6-20')
-        password.reportValidity();
-    } else {
-        password.setCustomValidity('');
-    }
+    checkValidity(
+        password,
+        'must include lowercase letter, uppercase letter, number, and special character. length 6-20',
+        /^(?=.*[0-9])(?=.*[!@#$%^&*,.])[A-Za-z\d@$!%*?&,.]{6,20}$/
+    )
 })
 
 function checkEmpty(input) {
     return input.value === '' ? true : false;
+}
+
+function checkValidity(input, message, regex) {
+    if (!input.value.match(regex)) {
+        input.setCustomValidity(message);
+        input.reportValidity();
+    } else {
+        input.setCustomValidity('');
+    }
 }
