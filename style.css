@@ -6,6 +6,10 @@
     border-color: red;
 }
 
+#myImg {
+    width: 100px;
+}
+
 .top-div {
     width: 100%;
     display: grid;

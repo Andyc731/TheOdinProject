@@ -40,6 +40,7 @@ locationInput.addEventListener('keyup', (e) => {
 
     if (e.key === 'Enter') {
         weatherAPI(locationInput.value)
+        myImg.src = 'image/loading.gif';
     }
 })
 
