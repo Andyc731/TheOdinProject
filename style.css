@@ -1,5 +1,13 @@
 body {
   margin: 0;
+  height: 100%;
+  display: grid;
+}
+
+#container {
+  display: grid;
+  grid-template-rows: 100px 1fr 400px;
+  height: 100vh;
 }
 
 #background {
@@ -47,13 +55,22 @@ body {
   grid-template-columns: 300px 300px;
   justify-content: center;
   background-color: blue;
+  align-items: center;
+  gap: 300px;
 }
 
 #container-bottom {
   display: grid;
-  height: 300px;
   grid-template-columns: repeat(7, 1fr);
   background-color: purple;
+  justify-items: center;
+}
+
+.middle-div {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-color: brown;
 }
 
 .days {
@@ -61,7 +78,7 @@ body {
   flex-direction: column;
 }
 
-.dayImg {
+.dayIcon {
   width: 70px;
   height: 70px;
 }
