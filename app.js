@@ -1,3 +1,4 @@
+const myForm = document.getElementById('myForm')
 
 weather();
 
@@ -6,7 +7,6 @@ myForm.addEventListener('submit', (e) => {
 })
 
 function weather() {
-    const myForm = document.getElementById('myForm')
     const searchInput = document.getElementById('search');
     const myImg = document.getElementById('myImg');
     const temperatureDiv = document.getElementById('temperature-div');
@@ -18,18 +18,17 @@ function weather() {
     const windSpeed = document.getElementById('wind-speed');
 
     let weatherData;
+    let unit = 'celsius';
 
     weatherAPI('london');
 
     async function weatherAPI(location) {
         const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=623ae80523c24099aad193932240301&days=7&q=${location}`, {mode: "cors"});
         weatherData = await response.json();
-        console.log(weatherData)
-        displayCurrentWeather(weatherData, 'celsius')
-        displayForecastWeather(weatherData, 'celsius');
+        displayWeather(weatherData);
     }
     
-    function displayCurrentWeather(data, unit) {
+    function displayCurrentWeather(data) {
         myImg.src = data.current.condition.icon;
         if (unit === 'celsius') {
             temperatureDiv.textContent = weatherData.current.temp_c + '\u2103';
@@ -44,7 +43,7 @@ function weather() {
         rainChance.textContent = 'chance of rain: ' + data.forecast.forecastday[0].day.daily_chance_of_rain + '%';
     }
 
-    function displayForecastWeather(data, unit) {
+    function displayForecastWeather(data) {
         const bottomCont = document.getElementById('container-bottom');
         const days = document.querySelectorAll('.days');
 
@@ -67,17 +66,16 @@ function weather() {
     })
     
     unitSwitch.addEventListener('change', () => {
-        const unitText = document.getElementById('unit');
-        if (unitText.textContent === 'celsius') {
-            unitText.textContent = 'fahrenheit';
-            displayCurrentWeather(weatherData, 'fahrenheit');
-            displayForecastWeather(weatherData, 'fahrenheit')
-        } else {
-            unitText.textContent = 'celsius';
-            displayCurrentWeather(weatherData, 'celsius');
-            displayForecastWeather(weatherData, 'celsius');
-        }
+        unit === 'celsius' ? unit = 'fahrenheit' : unit = 'celsius';
+        displayWeather(weatherData);
     })
+
+    function displayWeather(data) {
+        const unitText = document.getElementById('unit');
+        unitText.textContent = unit;
+        displayCurrentWeather(weatherData);
+        displayForecastWeather(weatherData);
+    }
 }
 
 
