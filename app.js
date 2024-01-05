@@ -8,7 +8,6 @@ const feel = document.getElementById('feel');
 const humidity = document.getElementById('humidity');
 const rainChance = document.getElementById('rain-chance');
 const windSpeed = document.getElementById('wind-speed');
-const days = document.querySelectorAll('.days');
 
 weather();
 
@@ -33,23 +32,25 @@ function weather() {
         myImg.src = data.current.condition.icon;
         if (unit === 'celsius') {
             temperatureDiv.textContent = weatherData.current.temp_c + '\u2103';
-            feel.textContent = 'feels like ' + data.current.feelslike_c;
-            windSpeed.textContent = 'wind speed: ' + data.current.wind_kph;
+            feel.textContent = 'feels like ' + data.current.feelslike_c + '\u2103';
+            windSpeed.textContent = 'wind speed: ' + data.current.wind_kph + 'km/h';
         } else if (unit === 'fahrenheit') {
             temperatureDiv.textContent = weatherData.current.temp_f + '\u2109';
-            feel.textContent = 'feels like ' + data.current.feelslike_f;
-            windSpeed.textContent = 'wind speed: ' + data.current.wind_mph;
+            feel.textContent = 'feels like ' + data.current.feelslike_f + '\u2109';
+            windSpeed.textContent = 'wind speed: ' + data.current.wind_mph + 'mph';
         }
         humidity.textContent = 'humidity: ' +data.current.humidity + '%';
+        rainChance.textContent = 'chance of rain: ' + data.forecast.forecastday[0].day.daily_chance_of_rain + '%';
     }
 
     function displayForecastWeather(data, unit) {
-        const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const bottomCont = document.getElementById('container-bottom');
+        const days = document.querySelectorAll('.days');
 
-        for(i in weatherData.forecast.forecastday){
-            const dayOfWeek = new Date(weatherData.forecast.forecastday[i].date).getDay();
-            console.log(daysInWeek[dayOfWeek]);
-            days[i].textContent = daysInWeek[dayOfWeek];
+        for(i in data.forecast.forecastday){
+            const thisDay = data.forecast.forecastday[i];
+
+            bottomCont.replaceChild(createDayDiv(thisDay), days[i]);
         }
     };
 
@@ -76,5 +77,41 @@ function weather() {
 }
 
 
+function createDiv(className, text) {
+    const newDiv = document.createElement('div');
+    if (className) newDiv.classList.add(className);
+    newDiv.textContent = text;
+    return newDiv;
+}
+
+function createImg(className, source) {
+    const newImg = document.createElement('img');
+    if (className) newImg.classList.add(className);
+    newImg.src= source;
+    return newImg;
+}
+
+function getDay(day){
+    const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayOfWeek = new Date(day.date).getDay();
+    return daysInWeek[dayOfWeek];
+}
+
+function createDayDiv(day) {
+    const container = createDiv('days');
+    const flexContainer = createDiv('day-flex');
+    const dayText = createDiv('dayText', getDay(day));
+    const maxTemp = createDiv('maxTemp', day.day.maxtemp_c);
+    const minTemp = createDiv('minTemp', day.day.mintemp_c);
+    const icon = createImg('day-icon', day.day.condition.icon);
+
+    flexContainer.appendChild(dayText);
+    flexContainer.appendChild(maxTemp);
+    flexContainer.appendChild(minTemp);
+    container.appendChild(flexContainer)
+    container.appendChild(icon);
+
+    return container;
+}
 
 
