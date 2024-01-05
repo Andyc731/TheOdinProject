@@ -8,27 +8,32 @@ myForm.addEventListener('submit', (e) => {
 
 function weather() {
     const searchInput = document.getElementById('search');
-    const myImg = document.getElementById('myImg');
-    const temperatureDiv = document.getElementById('temperature-div');
     const unitSwitch = document.querySelector('.switch');
+    const myImg = document.getElementById('myImg');
     
-    const feel = document.getElementById('feel');
-    const humidity = document.getElementById('humidity');
-    const rainChance = document.getElementById('rain-chance');
-    const windSpeed = document.getElementById('wind-speed');
-
+    
     let weatherData;
     let unit = 'celsius';
-
+    
     weatherAPI('london');
-
+    
     async function weatherAPI(location) {
+
+        
         const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=623ae80523c24099aad193932240301&days=7&q=${location}`, {mode: "cors"});
-        weatherData = await response.json();
-        displayWeather(weatherData);
+        weatherData = await (response.ok ? response.json() : Promise.reject(new Error ('blah'))).catch(e => {myImg.src = 'image/error.jpg'});
+        console.log(weatherData)
+        displayCurrentWeather(weatherData);
+        displayForecastWeather(weatherData);
     }
     
     function displayCurrentWeather(data) {
+        const temperatureDiv = document.getElementById('temperature-div');
+        const feel = document.getElementById('feel');
+        const humidity = document.getElementById('humidity');
+        const rainChance = document.getElementById('rain-chance');
+        const windSpeed = document.getElementById('wind-speed');
+        
         myImg.src = data.current.condition.icon;
         if (unit === 'celsius') {
             temperatureDiv.textContent = weatherData.current.temp_c + '\u2103';
