@@ -33,7 +33,10 @@ function weather() {
         const humidity = document.getElementById('humidity');
         const rainChance = document.getElementById('rain-chance');
         const windSpeed = document.getElementById('wind-speed');
+        const location = document.querySelector('.location');
         
+        location.textContent = data.location.name;
+
         myImg.src = data.current.condition.icon;
         if (unit === 'celsius') {
             temperatureDiv.textContent = weatherData.current.temp_c + '\u2103';
