@@ -21,7 +21,7 @@ function weather() {
 
         
         const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=623ae80523c24099aad193932240301&days=7&q=${location}`, {mode: "cors"});
-        weatherData = await (response.ok ? response.json() : Promise.reject(new Error ('blah'))).catch(e => {myImg.src = 'image/error.jpg'});
+        weatherData = await (response.ok ? response.json() : Promise.reject(new Error ('Error 400'))).catch(e => {myImg.src = 'image/error.jpg'});
         console.log(weatherData)
         displayCurrentWeather(weatherData);
         displayForecastWeather(weatherData);
