@@ -1,13 +1,3 @@
-const myForm = document.getElementById('myForm')
-const searchInput = document.getElementById('search');
-const myImg = document.getElementById('myImg');
-const temperatureDiv = document.getElementById('temperature-div');
-const unitSwitch = document.querySelector('.switch');
-const unitText = document.getElementById('unit');
-const feel = document.getElementById('feel');
-const humidity = document.getElementById('humidity');
-const rainChance = document.getElementById('rain-chance');
-const windSpeed = document.getElementById('wind-speed');
 
 weather();
 
@@ -16,6 +6,17 @@ myForm.addEventListener('submit', (e) => {
 })
 
 function weather() {
+    const myForm = document.getElementById('myForm')
+    const searchInput = document.getElementById('search');
+    const myImg = document.getElementById('myImg');
+    const temperatureDiv = document.getElementById('temperature-div');
+    const unitSwitch = document.querySelector('.switch');
+    
+    const feel = document.getElementById('feel');
+    const humidity = document.getElementById('humidity');
+    const rainChance = document.getElementById('rain-chance');
+    const windSpeed = document.getElementById('wind-speed');
+
     let weatherData;
 
     weatherAPI('london');
@@ -50,7 +51,7 @@ function weather() {
         for(i in data.forecast.forecastday){
             const thisDay = data.forecast.forecastday[i];
 
-            bottomCont.replaceChild(createDayDiv(thisDay), days[i]);
+            bottomCont.replaceChild(createDayDiv(thisDay, unit), days[i]);
         }
     };
 
@@ -66,12 +67,15 @@ function weather() {
     })
     
     unitSwitch.addEventListener('change', () => {
+        const unitText = document.getElementById('unit');
         if (unitText.textContent === 'celsius') {
             unitText.textContent = 'fahrenheit';
             displayCurrentWeather(weatherData, 'fahrenheit');
+            displayForecastWeather(weatherData, 'fahrenheit')
         } else {
             unitText.textContent = 'celsius';
             displayCurrentWeather(weatherData, 'celsius');
+            displayForecastWeather(weatherData, 'celsius');
         }
     })
 }
@@ -97,12 +101,12 @@ function getDay(day){
     return daysInWeek[dayOfWeek];
 }
 
-function createDayDiv(day) {
+function createDayDiv(day, unit) {
     const container = createDiv('days');
     const flexContainer = createDiv('day-flex');
     const dayText = createDiv('dayText', getDay(day));
-    const maxTemp = createDiv('maxTemp', day.day.maxtemp_c);
-    const minTemp = createDiv('minTemp', day.day.mintemp_c);
+    const maxTemp = createDiv('maxTemp', unit === 'celsius' ? day.day.maxtemp_c + '\u2103' : day.day.maxtemp_f + '\u2109');
+    const minTemp = createDiv('minTemp', unit === 'celsius' ? day.day.mintemp_c + '\u2103' : day.day.mintemp_f + '\u2109');
     const icon = createImg('day-icon', day.day.condition.icon);
 
     flexContainer.appendChild(dayText);
