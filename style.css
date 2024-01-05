@@ -22,7 +22,6 @@ body {
   margin: 0;
   position: fixed;
   background-position: center;
-  background-attachment: fixed; 
   opacity: 0.5;
 }
 
