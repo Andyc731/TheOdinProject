@@ -60,7 +60,6 @@ body {
 #container-bottom {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  background-color: purple;
   justify-items: center;
 }
 
@@ -80,10 +79,14 @@ body {
 }
 
 .dayText,
-.minTemp,
 .maxTemp {
   color: white;
-  font-size: 20px;
+  font-size: 27px;
+}
+
+.minTemp {
+  color: white;
+  font-size: 18px;
 }
 
 #left-middle {
@@ -94,8 +97,22 @@ body {
 .days {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  background-color: grey;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(0, 0, 0, 0.6);
+  padding: 30px 50px 30px 50px;
+  max-height: 180px;
+  min-width: 100px;
+}
+
+.day-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.day-icon {
+  width: 80px;
 }
 
 .condition {
