@@ -1,15 +1,15 @@
-const myForm = document.getElementById('myForm')
 
 weather();
 
-myForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-})
 
 function weather() {
+    const myForm = document.getElementById('myForm')
     const searchInput = document.getElementById('search');
     const unitSwitch = document.querySelector('.switch');
     const myImg = document.getElementById('myImg');
+    myForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+    })
     
     
     let weatherData;
@@ -22,9 +22,7 @@ function weather() {
         
         const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=623ae80523c24099aad193932240301&days=7&q=${location}`, {mode: "cors"});
         weatherData = await (response.ok ? response.json() : Promise.reject(new Error ('Error 400'))).catch(e => {myImg.src = 'image/error.jpg'});
-        console.log(weatherData)
-        displayCurrentWeather(weatherData);
-        displayForecastWeather(weatherData);
+        displayWeather();
     }
     
     function displayCurrentWeather(data) {
@@ -75,14 +73,18 @@ function weather() {
     
     unitSwitch.addEventListener('change', () => {
         unit === 'celsius' ? unit = 'fahrenheit' : unit = 'celsius';
-        displayWeather(weatherData);
+        displayWeather();
     })
 
-    function displayWeather(data) {
+    function displayWeather() {
         const unitText = document.getElementById('unit');
-        unitText.textContent = unit;
+        unitText.textContent = convertUnitText(unit);
         displayCurrentWeather(weatherData);
         displayForecastWeather(weatherData);
+    }
+
+    function convertUnitText(unit) {
+        return unit === 'celsius' ? '\u2103' : '\u2109';
     }
 }
 
