@@ -18,11 +18,10 @@ function weather() {
     weatherAPI('london');
     
     async function weatherAPI(location) {
-
-        
         const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=623ae80523c24099aad193932240301&days=7&q=${location}`, {mode: "cors"});
         weatherData = await (response.ok ? response.json() : Promise.reject(new Error ('Error 400'))).catch(e => {myImg.src = 'image/error.jpg'});
         displayWeather();
+        // console.log(`${new Date(weatherData.location.localtime)}`.split());
     }
     
     function displayCurrentWeather(data) {
@@ -32,6 +31,13 @@ function weather() {
         const rainChance = document.getElementById('rain-chance');
         const windSpeed = document.getElementById('wind-speed');
         const location = document.querySelector('.location');
+        const time = document.querySelector('.time')
+        const condition = document.querySelector('.current-condition');
+
+
+
+        const localTime = `${new Date(weatherData.location.localtime)}`.split(' ');
+        console.log(weatherData);
         
         location.textContent = data.location.name;
 
@@ -47,6 +53,8 @@ function weather() {
         }
         humidity.textContent = 'humidity: ' +data.current.humidity + '%';
         rainChance.textContent = 'chance of rain: ' + data.forecast.forecastday[0].day.daily_chance_of_rain + '%';
+        time.textContent = `${getDay(weatherData.location.localtime)}, ${localTime[1]}. ${localTime[2]}, ${localTime[3]}`;
+        condition.textContent = weatherData.current.condition.text;
     }
 
     function displayForecastWeather(data) {
@@ -55,6 +63,7 @@ function weather() {
 
         for(i in data.forecast.forecastday){
             const thisDay = data.forecast.forecastday[i];
+            // console.log(thisDay);
 
             bottomCont.replaceChild(createDayDiv(thisDay, unit), days[i]);
         }
@@ -103,16 +112,16 @@ function createImg(className, source) {
     return newImg;
 }
 
-function getDay(day){
+function getDay(date){
     const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const dayOfWeek = new Date(day.date).getDay();
+    const dayOfWeek = new Date(date).getDay();
     return daysInWeek[dayOfWeek];
 }
 
 function createDayDiv(day, unit) {
     const container = createDiv('days');
     const flexContainer = createDiv('day-flex');
-    const dayText = createDiv('dayText', getDay(day));
+    const dayText = createDiv('dayText', getDay(day.date + 'T00:00'));
     const maxTemp = createDiv('maxTemp', unit === 'celsius' ? day.day.maxtemp_c + '\u2103' : day.day.maxtemp_f + '\u2109');
     const minTemp = createDiv('minTemp', unit === 'celsius' ? day.day.mintemp_c + '\u2103' : day.day.mintemp_f + '\u2109');
     const icon = createImg('day-icon', day.day.condition.icon);
