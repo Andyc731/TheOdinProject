@@ -9,7 +9,7 @@ list.append('blah');
 list.prepend('blah2');
 list.append('blah3');
 
-console.log(list.contains('blah3'));
+console.log(list.toString());
 
 function LinkedList() {
 
@@ -90,9 +90,32 @@ function LinkedList() {
             return false;
         },
     
-        find: function (value) {},
+        find: function (value) {
+            let current = this.listHead;
+            let count = 0;
+            for(let i = 0; i < this.size(); i++) {
+                if(current.value === value) {
+                    return count;
+                }
+                current = current.nextNode;
+                count++;
+            }
+            return null;
+        },
     
-        toString: function () {},
+        toString: function () {
+            let str = '';
+            let current = this.listHead;
+            for(let i = 0; i < this.size(); i++) {
+                console.log(current.value);
+
+                str += `( ${current.value} ) -> `;
+                current = current.nextNode;
+            }
+
+            str += 'null';
+            return str;
+        },
 
     }
 
