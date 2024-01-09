@@ -9,7 +9,9 @@ list.append('blah');
 list.prepend('blah2');
 list.append('blah3');
 
-console.log(list.toString());
+list.insertAt('blah4', 0);
+
+console.log(list.at(-4));
 
 function LinkedList() {
 
@@ -72,6 +74,9 @@ function LinkedList() {
                 }
                 current = current.nextNode;
             }
+            if (index < 0) {
+                return null;
+            }
             return current;
         },
     
@@ -107,7 +112,6 @@ function LinkedList() {
             let str = '';
             let current = this.listHead;
             for(let i = 0; i < this.size(); i++) {
-                console.log(current.value);
 
                 str += `( ${current.value} ) -> `;
                 current = current.nextNode;
@@ -116,7 +120,19 @@ function LinkedList() {
             str += 'null';
             return str;
         },
-
+        
+        insertAt: function (value, index) {
+            const newNode = Node(value);
+            newNode.nextNode = this.at(index);
+            if (index < 0 || index >= this.size()) {
+                return null;
+            }
+            if (index === 0) {
+                this.prepend(value);
+            } else {
+                this.at(index-1).nextNode = newNode;
+            }
+        }
     }
 
  }
