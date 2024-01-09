@@ -10,8 +10,9 @@ list.prepend('blah2');
 list.append('blah3');
 
 list.insertAt('blah4', 0);
+list.removeAt(1);
 
-console.log(list.at(-4));
+console.log(list.toString());
 
 function LinkedList() {
 
@@ -131,6 +132,18 @@ function LinkedList() {
                 this.prepend(value);
             } else {
                 this.at(index-1).nextNode = newNode;
+            }
+        },
+
+        removeAt: function (index) {
+
+            if (index < 0 || index >= this.size()) {
+                return null;
+            }
+            if (index === 0) {
+                this.listHead = this.at(index + 1);
+            } else {
+                this.at(index - 1).nextNode = this.at(index + 1);
             }
         }
     }
