@@ -8,10 +8,8 @@ const list = LinkedList();
 list.append('blah');
 list.prepend('blah2');
 list.append('blah3');
-list.pop();
-list.pop();
 
-console.log(list.at(0));
+console.log(list.contains('blah3'));
 
 function LinkedList() {
 
@@ -87,6 +85,7 @@ function LinkedList() {
                 if(current.value === value) {
                     return true;
                 }
+                current = current.nextNode;
             }
             return false;
         },
