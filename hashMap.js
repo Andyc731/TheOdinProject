@@ -9,6 +9,9 @@ function HashMap () {
         storedKeys: 0,
 
         hash: function (value) {
+            if (typeof value !== 'string') {
+                return null;
+            }
             let hash = 4921;
             const primenumber = 37;
             
@@ -16,9 +19,6 @@ function HashMap () {
                 hash += primenumber * hash + value.charCodeAt(i);
             }
 
-            if (typeof value !== 'string') {
-                return null;
-            }
 
             return hash;
         },
@@ -37,19 +37,28 @@ function HashMap () {
                 list.append(key, value);
                 this.storedKeys++;
             }
+            if (this.storedKeys > this.bucket.length * this.loadFactor) {
+                this.resize();
+            }
         },
 
         resize: function () {
 
-            // const newBucketSize = this.bucket.length * 2;
-            // const newBucket = Array.from({length: newBucketSize}, () => null);
+            const newBucketSize = this.bucket.length * 2;
+            const newBucket = Array.from({length: newBucketSize}, () => null);
     
-            // for (let i = 0; i < this.bucket.length; i++) {
-            //     if (this.bucket[i] !== undefined) {
-            //         const newIndex = this.hash(this.bucket[i].key) % newBucketSize;
-            //         newBucket[newIndex] = this.bucket[i];
-            //     }
-            // }
+            for (let i = 0; i < this.bucket.length; i++) {
+                const currentBucket = this.bucket[i];
+                if (currentBucket) {
+                    for (let j = 0; j < currentBucket.size(); j++) {
+                        const newIndex = this.hash(currentBucket.at(j).key) % newBucketSize;
+                        const newList = LinkedList();
+                        newList.append(currentBucket.at(j).key, currentBucket.at(j).value);
+                        newBucket[newIndex] = newList;
+                    }
+                }
+            }
+            this.bucket = newBucket;
         },
 
         get: function (key) {
@@ -128,9 +137,21 @@ test.set('erkj', '1');
 test.set('3', 'erkj');
 test.set('erkj', '4');
 test.set('2', 'erkj');
-test.keys();
-test.entries();
-console.log(test.entries());
+test.set('4', 'erkj');
+test.set('5', 'erkj');
+test.set('6', 'erkj');
+test.set('7', 'erkj');
+test.set('8', 'erkj');
+test.set('9', 'erkj');
+test.set('10', 'erkj');
+test.set('11', 'erkj');
+test.set('12', 'erkj');
+test.set('13', 'erkj');
+test.set('14', 'erkj');
+test.set('15', 'erkj');
+test.set('16', 'erkj');
+
+console.log(test.bucket.length);
 
 function Node(key = null, value = null) {
     return {key: key, value: value, nextNode: null};
