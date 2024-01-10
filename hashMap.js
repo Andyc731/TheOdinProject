@@ -6,6 +6,8 @@ function HashMap () {
 
         loadFactor: 0.75,
 
+        storedKeys: 0,
+
         hash: function (value) {
             let hash = 4921;
             const primenumber = 37;
@@ -27,12 +29,13 @@ function HashMap () {
             if (list === null) {
                 const newList = LinkedList();
                 newList.append(key, value);
-
+                this.storedKeys++;
                 this.bucket[index] = newList;
             } else if(list.containsKey(key)) {
                 list.at(list.findKey(key)).value = value;
             } else {
                 list.append(key, value);
+                this.storedKeys++;
             }
         },
 
@@ -51,7 +54,7 @@ function HashMap () {
 
         get: function (key) {
             const index = this.hash(key) % this.bucket.length;
-            if (this.bucket[index] === null) {
+            if (this.bucket[index] === null || !this.bucket[index].listHead) {
                 return null;
             } else {
                 return this.bucket[index].at(this.bucket[index].findKey(key)).value;
@@ -66,7 +69,30 @@ function HashMap () {
             const index = this.hash(key) % this.bucket.length;
             if (this.bucket[index]) {
                 this.bucket[index].removeAt(this.bucket[index].findKey(key))
+                this.storedKeys--;
             }
+        },
+
+        length: function() {
+            return this.storedKeys;
+        },
+
+        clear: function() {
+            this.bucket = new Array(16).fill(null)
+            this.storedKeys = 0;
+        },
+
+        keys: function() {
+            const array = [];
+            for (let list of this.bucket) {
+                if (list) {
+                    for (let i = 0; i < list.size(); i++) {
+                        array.push(list.at(i).key);
+                    }
+                }
+            }
+            console.log(array);
+            return array;
         }
     }
 }
@@ -78,9 +104,9 @@ test.set('erkj', '1');
 test.set('3', 'erkj');
 test.set('erkj', '4');
 test.set('2', 'erkj');
-test.remove('erkj231');
+test.keys();
 
-console.log(test);
+// console.log(test.length());
 
 function Node(key = null, value = null) {
     return {key: key, value: value, nextNode: null};
