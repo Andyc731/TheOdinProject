@@ -19,12 +19,16 @@ function HashMap () {
 
         set: function (key, value) {
             const index = this.hash(key) % this.bucket.length;
-            if (this.bucket[index] === null) {
+            const list = this.bucket[index];
+            if (list === null) {
                 const newList = LinkedList();
-                newList.append(value);
+                newList.append(key, value);
+
                 this.bucket[index] = newList;
+            } else if(list.containsKey(key)) {
+                list.at(list.findKey(key)).value = value;
             } else {
-                this.bucket[index].append(value);
+                list.append(key, value);
             }
         },
 
@@ -39,6 +43,23 @@ function HashMap () {
             //         newBucket[newIndex] = this.bucket[i];
             //     }
             // }
+        },
+
+        get: function (key) {
+            const index = this.hash(key) % this.bucket.length;
+            if (this.bucket[index] === null) {
+                return null;
+            } else {
+                return this.bucket[index].at(this.bucket[index].find(key)).value;
+            }
+        },
+
+        has: function (key) {
+            return (this.get(key)) ? true : false;
+        },
+
+        remove: function(key) {
+            this.get(key)
         }
     }
 }
@@ -47,14 +68,14 @@ const test = HashMap();
 
 
 test.set('erkj', '1');
-test.set('erkj', '2');
-test.set('erkj', '3');
+test.set('3', 'erkj');
 test.set('erkj', '4');
+test.set('2', 'erkj');
 
-console.log(test.bucket[test.hash('erkj') % test.bucket.length].at(2));
+console.log(test.get('erkj'));
 
-function Node(value = null) {
-    return {value: value, nextNode: null};
+function Node(key = null, value = null) {
+    return {key: key, value: value, nextNode: null};
 }
 
 function LinkedList() {
@@ -62,8 +83,8 @@ function LinkedList() {
     return {
         listHead: null,
 
-        append: function (value){
-            const newNode = Node(value);
+        append: function (key, value){
+            const newNode = Node(key, value);
 
             if (this.listHead) {
                 let current = this.listHead;
@@ -76,8 +97,8 @@ function LinkedList() {
             }
         },
     
-        prepend: function (value){
-            const newNode = Node(value);
+        prepend: function (key, value){
+            const newNode = Node(key, value);
 
             newNode.nextNode = this.listHead;
             this.listHead = newNode;
@@ -131,19 +152,44 @@ function LinkedList() {
         contains: function (value) {
             let current = this.listHead;
             for(let i = 0; i < this.size(); i++) {
-                if(current.value === value) {
+                if(current.value === value || current.key === value) {
                     return true;
                 }
                 current = current.nextNode;
             }
             return false;
         },
+
+        containsKey: function(key) {
+            let current = this.listHead;
+            for(let i = 0; i < this.size(); i++) {
+                if(current.key === key) {
+                    return true;
+                }
+                current = current.nextNode;
+            }
+            return false;
+
+        },
     
         find: function (value) {
             let current = this.listHead;
             let count = 0;
             for(let i = 0; i < this.size(); i++) {
-                if(current.value === value) {
+                if(current.value === value || current.key === value) {
+                    return count;
+                }
+                current = current.nextNode;
+                count++;
+            }
+            return null;
+        },
+
+        findKey: function(key) {
+            let current = this.listHead;
+            let count = 0;
+            for(let i = 0; i < this.size(); i++) {
+                if(current.key === key) {
                     return count;
                 }
                 current = current.nextNode;
@@ -166,7 +212,7 @@ function LinkedList() {
         },
         
         insertAt: function (value, index) {
-            const newNode = Node(value);
+            const newNode = Node(null, value);
             newNode.nextNode = this.at(index);
             if (index < 0 || index >= this.size()) {
                 return null;
