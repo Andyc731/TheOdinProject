@@ -14,6 +14,10 @@ function HashMap () {
                 hash += primenumber * hash + value.charCodeAt(i);
             }
 
+            if (typeof value !== 'string') {
+                return null;
+            }
+
             return hash;
         },
 
@@ -50,7 +54,7 @@ function HashMap () {
             if (this.bucket[index] === null) {
                 return null;
             } else {
-                return this.bucket[index].at(this.bucket[index].find(key)).value;
+                return this.bucket[index].at(this.bucket[index].findKey(key)).value;
             }
         },
 
@@ -59,7 +63,10 @@ function HashMap () {
         },
 
         remove: function(key) {
-            this.get(key)
+            const index = this.hash(key) % this.bucket.length;
+            if (this.bucket[index]) {
+                this.bucket[index].removeAt(this.bucket[index].findKey(key))
+            }
         }
     }
 }
@@ -71,8 +78,9 @@ test.set('erkj', '1');
 test.set('3', 'erkj');
 test.set('erkj', '4');
 test.set('2', 'erkj');
+test.remove('erkj231');
 
-console.log(test.get('erkj'));
+console.log(test);
 
 function Node(key = null, value = null) {
     return {key: key, value: value, nextNode: null};
