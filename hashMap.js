@@ -91,7 +91,31 @@ function HashMap () {
                     }
                 }
             }
-            console.log(array);
+            return array;
+        },
+
+        values: function() {
+            const array = [];
+            for (let list of this.bucket) {
+                if (list) {
+                    for (let i = 0; i < list.size(); i++) {
+                        array.push(list.at(i).value);
+                    }
+                }
+            }
+            return array;
+        },
+
+        entries: function() {
+            const array = [];
+            for (let list of this.bucket) {
+                if (list) {
+                    for (let i = 0; i < list.size(); i++) {
+                        const pair = [list.at(i).key, list.at(i).value];
+                        array.push(pair);
+                    }
+                }
+            }
             return array;
         }
     }
@@ -105,8 +129,8 @@ test.set('3', 'erkj');
 test.set('erkj', '4');
 test.set('2', 'erkj');
 test.keys();
-
-// console.log(test.length());
+test.entries();
+console.log(test.entries());
 
 function Node(key = null, value = null) {
     return {key: key, value: value, nextNode: null};
