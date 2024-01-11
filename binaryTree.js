@@ -8,18 +8,91 @@ function Node(value, left = null, right = null) {
 
 function Tree (array) {
     return {
-        root: buildTree(sortArray(array))
-    }
-}
+        root: buildTree(sortArray(array)),
 
-function sortArray(array) {
-    const sortedArray = mergeSort(array);
-    for (let i = 0; i < sortedArray.length - 2; i++) {
-        if (sortedArray[i] === sortedArray[i+1]) {
-            sortedArray.splice(i, 1);
+        
+        insert: function (value, current = this.root) {
+            if (!current) {
+                current = Node(value);
+                return current;
+            }
+
+            if (value < current.value) {
+                current.left = this.insert(value, current.left);
+            } else if (value > current.value) {
+                current.right = this.insert(value, current.right);
+            }
+            return current;
+        },
+        
+        delete: function (value, current = this.root) {
+            if (!current) {
+                return current;
+            }
+            
+            if (current.value > value) {
+                current.left = this.delete(value, current.left);
+                return current;
+            }
+            if (current.value < value) {
+                current.right = this.delete(value, current.right);
+                return current;
+            }
+            
+            if (!current.left) {
+                return current.right;
+            } else if (!current.right) {
+                return current.left;
+            }
+
+            else {
+                let succParent = current;
+
+                let succ = current.right;
+                while (succ.left !== null) {
+                  succParent = succ;
+                  succ = succ.left;
+                }
+             
+                if (succParent !== current) {
+                  succParent.left = succ.right;
+                } else {
+                  succParent.right = succ.right;
+                }
+             
+                current.value = succ.value;
+                console.log(succ);
+                return current;
+            }
+        },
+
+        find: function (value, current = this.root) {
+            if (!current) {
+                return current;
+            }
+            
+            if (value < current.value) {
+                current = this.find(value, current.left);
+            } else if (value > current.value) {
+                current = this.find(value, current.right);
+            }
+            return current;
+        },
+
+        levelOrder: function(current = this.root, array = [], queue = []) {
+            if (!current) return current;
+            array.push(current.value);
+            if (current.left) queue.push(current.left);
+            if (current.right) queue.push(current.right);
+            if (queue.length > 0) {
+                this.levelOrder(queue.shift(), array, queue);
+            }
+
+            return array;
+
         }
+        
     }
-    return sortedArray;
 }
 
 function buildTree(array) {
@@ -36,6 +109,17 @@ function buildTree(array) {
         return Node(value, left, right);
     }
 }
+
+function sortArray(array) {
+    const sortedArray = mergeSort(array);
+    for (let i = 0; i < sortedArray.length - 2; i++) {
+        if (sortedArray[i] === sortedArray[i+1]) {
+            sortedArray.splice(i, 1);
+        }
+    }
+    return sortedArray;
+}
+
 
 function mergeSort(array) {
     
@@ -80,8 +164,8 @@ if (node.left !== null) {
 }
 };
 
-const root = Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324],).root;
 
-console.log(sortArray([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]));
+const tree = Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+console.log(tree.levelOrder());
 
-prettyPrint(root)
+prettyPrint(tree.root)
