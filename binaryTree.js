@@ -139,6 +139,22 @@ function Tree (array) {
             if (!current.left) return current;
             current = current.left;
             return this.minValue(current);
+        },
+
+        height: function (value, current = this.find(value), height = 0, array = []) {
+            if (!current) {
+                return current;
+            }
+            array.push(height);
+            if (current.left) {
+                height++;
+                this.height(value, current.left, height, array);
+            }
+            if (current.right) {
+                // height++;
+                this.height(value, current.right, height, array);
+            }
+            return Math.max(...array);
         }
 
         
@@ -216,6 +232,6 @@ if (node.left !== null) {
 
 
 const tree = Tree(array);
-console.log(tree.postOrder());
+console.log(tree.height(23));
 
 prettyPrint(tree.root)
