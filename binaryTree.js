@@ -120,6 +120,21 @@ function Tree (array) {
             return array;
         },
 
+        postOrder: function(current = this.root, array = [], queue = [], callback = null) {
+
+            if (!current) return current;
+            array.unshift(current.value);
+            if (current.right) queue.push(current.right);
+            if (current.left) queue.push(current.left);
+            if (callback) callback(current);
+            if (queue.length > 0) {
+                this.postOrder(queue.shift(), array, queue);
+            }
+
+            return array;
+
+        },
+
         minValue: function (current = this.root){
             if (!current.left) return current;
             current = current.left;
@@ -201,6 +216,6 @@ if (node.left !== null) {
 
 
 const tree = Tree(array);
-console.log(tree.preOrder());
+console.log(tree.postOrder());
 
 prettyPrint(tree.root)
