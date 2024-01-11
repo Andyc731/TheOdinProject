@@ -61,7 +61,6 @@ function Tree (array) {
                 }
              
                 current.value = succ.value;
-                console.log(succ);
                 return current;
             }
         },
@@ -79,18 +78,54 @@ function Tree (array) {
             return current;
         },
 
-        levelOrder: function(current = this.root, array = [], queue = []) {
+        levelOrder: function(current = this.root, array = [], queue = [], callback = null) {
             if (!current) return current;
             array.push(current.value);
             if (current.left) queue.push(current.left);
             if (current.right) queue.push(current.right);
+            if (callback) callback(current);
             if (queue.length > 0) {
                 this.levelOrder(queue.shift(), array, queue);
             }
 
             return array;
 
+        },
+
+        inOrder: function(current = this.root, array = [], callback = null) {
+            if (!current) return current;
+
+            
+            this.inOrder(current.left, array);
+            array.push(current.value);
+            if (callback) callback(current);
+            this.inOrder(current.right, array);
+
+            return array;
+        },
+
+        preOrder: function(current = this.root, array = [], queue = [], callback = null) {
+            if (!current) return current;
+            array.push(current.value);
+            if (current.left) queue.push(current.left);
+            if (queue.length > 0) {
+                this.preOrder(queue.shift(), array, queue);
+            }
+            if (current.right) queue.push(current.right);
+            if (queue.length > 0) {
+                this.preOrder(queue.shift(), array, queue);
+            }
+            if (callback) callback(current);
+
+            return array;
+        },
+
+        minValue: function (current = this.root){
+            if (!current.left) return current;
+            current = current.left;
+            return this.minValue(current);
         }
+
         
     }
 }
@@ -134,7 +169,7 @@ function mergeSort(array) {
 
     return merge(firstHalf, secondHalf);
 }
-const array = [...sortArray([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])];
+const array = [...sortArray([1, 7, 4, 23, 8, 9, 4, 3, 5, 10, 7, 9, 67, 6345, 324])];
 
 
 // console.log(Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]).root);
@@ -165,7 +200,7 @@ if (node.left !== null) {
 };
 
 
-const tree = Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-console.log(tree.levelOrder());
+const tree = Tree(array);
+console.log(tree.preOrder());
 
 prettyPrint(tree.root)
