@@ -146,12 +146,11 @@ function Tree (array) {
                 return current;
             }
             array.push(height);
+            if (current.left || current.right) height++
             if (current.left) {
-                height++;
                 this.height(value, current.left, height, array);
             }
             if (current.right) {
-                // height++;
                 this.height(value, current.right, height, array);
             }
             return Math.max(...array);
@@ -232,6 +231,6 @@ if (node.left !== null) {
 
 
 const tree = Tree(array);
-console.log(tree.height(23));
+console.log(tree.height(9));
 
 prettyPrint(tree.root)
