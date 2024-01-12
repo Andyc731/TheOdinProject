@@ -195,16 +195,18 @@ function Tree (array) {
 
 function buildTree(array) {
 
-    if (array.length === 1) {
-        return Node(array[0]);
+    if (array.length === 0) {
+        return null;
     }
     
-    let mid = Math.floor(array.length / 2);
-    const value = array.splice(mid, 1)[0];
+    const mid = Math.floor(array.length / 2);
+    const value = array[mid];
     if (array.length > 0) {
-        const left = buildTree(array.slice(0, Math.floor((array.length+1) / 2)))
-        const right = buildTree(array.slice(Math.floor((array.length+1) / 2)));
+        const left = buildTree(array.slice(0, mid))
+        const right = buildTree(array.slice(mid + 1));
         return Node(value, left, right);
+    } else {
+        return Node(value);
     }
 }
 
