@@ -154,9 +154,23 @@ function Tree (array) {
                 this.height(value, current.right, height, array);
             }
             return Math.max(...array);
-        }
+        },
 
-        
+        depth: function (value, current = this.root, depth = 0) {
+            if (!current) {
+                return depth;
+            }
+            console.log(depth);
+
+            if (value < current.value) {
+                depth++;
+                depth = this.depth(value, current.left, depth);
+            } else if (value > current.value) {
+                depth++;
+                depth =this.depth(value, current.right, depth);
+            }
+            return depth;
+        }
     }
 }
 
@@ -231,6 +245,6 @@ if (node.left !== null) {
 
 
 const tree = Tree(array);
-console.log(tree.height(9));
+console.log(tree.depth(4));
 
 prettyPrint(tree.root)
