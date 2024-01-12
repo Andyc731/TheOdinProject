@@ -141,35 +141,49 @@ function Tree (array) {
             return this.minValue(current);
         },
 
-        height: function (value, current = this.find(value), height = 0, array = []) {
+        height: function (node, current = this.find(node.value), height = 0, array = []) {
             if (!current) {
                 return current;
             }
             array.push(height);
             if (current.left || current.right) height++
             if (current.left) {
-                this.height(value, current.left, height, array);
+                this.height(node, current.left, height, array);
             }
             if (current.right) {
-                this.height(value, current.right, height, array);
+                this.height(node, current.right, height, array);
             }
             return Math.max(...array);
         },
 
-        depth: function (value, current = this.root, depth = 0) {
+        depth: function (node, current = this.root, depth = 0) {
             if (!current) {
                 return depth;
             }
-            console.log(depth);
 
-            if (value < current.value) {
-                depth++;
-                depth = this.depth(value, current.left, depth);
-            } else if (value > current.value) {
-                depth++;
-                depth =this.depth(value, current.right, depth);
+            if (node.value < current.value) {
+                return this.depth(node, current.left, depth + 1);
+            } else if (node.value > current.value) {
+                return this.depth(node, current.right, depth + 1);
             }
             return depth;
+        },
+
+        isBalanced: function(current = this.root, isBalanced = []) {
+            if (!current) return true;
+            let leftHeight = current.left ? this.height(current.left) + 1: 0;
+            let rightHeight = current.right ? this.height(current.right) + 1: 0;
+            let difference = leftHeight - rightHeight;
+            
+            
+            if (-1 <= difference && 1 >= difference) {
+                this.isBalanced(current.left, isBalanced);
+                this.isBalanced(current.right, isBalanced);
+                // isBalanced.push(true);
+            } else {
+                isBalanced.push(false);
+            }
+            return isBalanced.length === 0;
         }
     }
 }
@@ -245,6 +259,7 @@ if (node.left !== null) {
 
 
 const tree = Tree(array);
-console.log(tree.depth(4));
+// tree.insert(11);
+console.log(tree.isBalanced());
 
 prettyPrint(tree.root)
