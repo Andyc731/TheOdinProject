@@ -141,19 +141,20 @@ function Tree (array) {
             return this.minValue(current);
         },
 
-        height: function (node, current = this.find(node.value), height = 0, array = []) {
+        height: function (node, current = this.find(node.value), height = 0) {
             if (!current) {
-                return current;
+                return -1;
             }
-            array.push(height);
-            if (current.left || current.right) height++
-            if (current.left) {
-                this.height(node, current.left, height, array);
+        
+            if (!current.left && !current.right) {
+                return height;
             }
-            if (current.right) {
-                this.height(node, current.right, height, array);
-            }
-            return Math.max(...array);
+
+            height++;
+
+            let leftHeight = current.left ? this.height(node, current.left, height) : -1;
+            let rightHeight = current.right ? this.height(node, current.right, height) : -1;
+            return Math.max(leftHeight, rightHeight);
         },
 
         depth: function (node, current = this.root, depth = 0) {
@@ -260,6 +261,6 @@ if (node.left !== null) {
 
 const tree = Tree(array);
 // tree.insert(11);
-console.log(tree.isBalanced());
+console.log(tree.height(Node(7)));
 
 prettyPrint(tree.root)
