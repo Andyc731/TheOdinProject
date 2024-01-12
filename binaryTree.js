@@ -185,6 +185,10 @@ function Tree (array) {
                 isBalanced.push(false);
             }
             return isBalanced.length === 0;
+        },
+
+        rebalance: function() {
+            this.root = buildTree(this.inOrder());
         }
     }
 }
@@ -260,7 +264,8 @@ if (node.left !== null) {
 
 
 const tree = Tree(array);
-// tree.insert(11);
-console.log(tree.height(Node(7)));
+tree.insert(11);
+tree.rebalance();
+console.log(tree.isBalanced());
 
 prettyPrint(tree.root)
