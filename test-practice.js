@@ -32,13 +32,25 @@ export const calculator = {
 export function caesarCipher(string, shift) {
     let newString = '';
     for (let i = 0; i < string.length; i++) {
-        if (string.charCodeAt(i) + shift > 122) {
-            newString += String.fromCharCode(96 + shift);
-        } else if (string.charCodeAt(i) + shift > 90 && string.charCodeAt(i) + shift < 96) {
-            newString += String.fromCharCode(64 + shift);
+        if (checkRange(string.charCodeAt(i))) {
+            newString += getChar(string.charCodeAt(i), shift);
         } else {
-            newString += String.fromCharCode(string.charCodeAt(i) + shift);
+            newString += string.charAt(i);
         }
     }
+    function checkRange(code) {
+        return (code < 123 && code > 96) || (code < 91 && code > 64);
+    }
+
+    function getChar(code, shift) {
+        if (code + shift > 122) {
+            return String.fromCharCode(96 + shift)
+        } else if (code + shift > 90 && code + shift < 96) {
+            return String.fromCharCode(64 + shift);
+        } else {
+            return String.fromCharCode(code + shift);
+        }
+    }
+
     return newString;
 }

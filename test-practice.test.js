@@ -25,7 +25,7 @@ test('calculator multiply', () => {
     expect(calculator.multiply(24, 12)).toBe(288);
 })
 
-test('caesarCipherWithZ', () => {
+test('caesarCipherWithSmallZ', () => {
     expect(caesarCipher('abcdz', 2)).toBe('cdefb');
 })
 
@@ -35,4 +35,8 @@ test('caesarCipher', () => {
 
 test('caesarCipherUpperZ', () => {
     expect(caesarCipher('abcdZ', 2)).toBe('cdefB');
+})
+
+test('caesarCipherPunctuation', () => {
+    expect(caesarCipher('abcdZ./', 2)).toBe('cdefB./');
 })
