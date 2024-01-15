@@ -24,3 +24,7 @@ test('calculator divide', () => {
 test('calculator multiply', () => {
     expect(calculator.multiply(24, 12)).toBe(288);
 })
+
+test('caesarCipher', () => {
+    expect(caesarCipher('abcde', 2)).toBe('cdefg');
+})
