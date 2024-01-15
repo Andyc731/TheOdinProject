@@ -28,3 +28,17 @@ export const calculator = {
         return num1 * num2;
     }
 }
+
+export function caesarCipher(string, shift) {
+    let newString = '';
+    for (let i = 0; i < string.length; i++) {
+        if (string.charCodeAt(i) + shift > 122) {
+            newString += String.fromCharCode(96 + shift);
+        } else if (string.charCodeAt(i) + shift > 90 && string.charCodeAt(i) + shift < 96) {
+            newString += String.fromCharCode(64 + shift);
+        } else {
+            newString += String.fromCharCode(string.charCodeAt(i) + shift);
+        }
+    }
+    return newString;
+}
