@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+}
+.portrait {
+    width: 400px;
+    margin: 0;
+}
+
+.name {
+    margin: -40px 0 0 0;
+    max-width: auto;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.about-me-container {
+    display: grid;
+    grid-template-columns: 400px 500px;
+    background-color: blue;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+}
+
+.about-me-text {
+    background-color: white;
+    padding: 20px;
+    margin: 0;
+    max-width: 700px;
+}
+
+.image-container {
+    background-color: grey;
+}
