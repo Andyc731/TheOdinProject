@@ -28,16 +28,14 @@ AuthorSchema.virtual("url").get(function () {
   return `/catalog/author/${this._id}`;
 });
 
-AuthorSchema.virtual("date_of_birth_formatted").get(function () {
-  return DateTime.fromJSDate(this.date_of_birth).toLocaleString(
-    DateTime.DATE_MED,
-  );
-});
-
-AuthorSchema.virtual("date_of_death_formatted").get(function () {
-  return DateTime.fromJSDate(this.date_of_death).toLocaleString(
-    DateTime.DATE_MED,
-  );
+AuthorSchema.virtual("lifespan").get(function () {
+  const dateOfBirthFormatted = this.date_of_birth
+    ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED)
+    : "";
+  const dateOfDeathFormatted = this.date_of_death
+    ? DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED)
+    : "";
+  return dateOfBirthFormatted + " - " + dateOfDeathFormatted;
 });
 
 // Export model
