@@ -113,10 +113,55 @@ exports.bookinstance_delete_post = asyncHandler(async (req, res, next) => {
 
 // Display BookInstance update form on GET.
 exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: BookInstance update GET");
+  const [bookInstance, allBooks] = await Promise.all([
+    BookInstance.findById(req.params.id).exec(),
+    Book.find({}, "title").sort({ title: 1 }).exec(),
+  ]);
+
+  res.render("bookinstance_form", {
+    title: "Update BookInstance",
+    bookinstance: bookInstance,
+    book_list: allBooks,
+  });
 });
 
 // Handle bookinstance update on POST.
-exports.bookinstance_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: BookInstance update POST");
-});
+exports.bookinstance_update_post = [
+  body("book", "Please select a book").trim().isLength({ min: 1 }).escape(),
+  body("imprint", "Imprint must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("status", "Please select a status").trim().isLength({ min: 1 }).escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const bookinstance = new BookInstance({
+      book: req.body.book,
+      imprint: req.body.imprint,
+      status: req.body.status,
+      due_back: req.body.due_back ? req.body.due_back : Date.now,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      const allBooks = await Book.find().sort({ title: 1 });
+
+      res.render("bookinstance_form", {
+        title: "Update BookInstance",
+        book_list: allBooks,
+      });
+      console.log("blah");
+      return;
+    } else {
+      const updatedBookInstance = await BookInstance.findByIdAndUpdate(
+        req.params.id,
+        bookinstance,
+        {},
+      );
+      console.log("blah2");
+      res.redirect(updatedBookInstance.url);
+    }
+  }),
+];
