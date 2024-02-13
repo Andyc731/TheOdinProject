@@ -8,7 +8,7 @@ const ItemSchema = new Schema({
 });
 
 ItemSchema.virtual("url").get(function () {
-  return "/catalog/items/${this.id}";
+  return `/catalog/items/${this.id}`;
 });
 
 module.exports = mongoose.model("Item", ItemSchema);
