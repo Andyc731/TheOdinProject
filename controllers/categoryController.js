@@ -1,15 +1,51 @@
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
+const Category = require("../models/category");
+const Item = require("../models/item");
 
 exports.category_detail = asyncHandler(async (req, res, next) => {
-  res.send("detail");
+  const [category, items] = await Promise.all([
+    Category.findById(req.params.id).exec(),
+    Item.find({ category: req.params.id }).exec(),
+  ]);
+
+  if (!category) {
+    const error = new Error();
+    error.status = 404;
+    return next(error);
+  }
+
+  res.render("category_detail", {
+    title: "Category Detail",
+    category: category,
+    items: items,
+  });
 });
 exports.category_create_get = asyncHandler(async (req, res, next) => {
-  res.send("create get");
+  res.render("category_form", {
+    title: "Create Category",
+  });
 });
-exports.category_create_post = asyncHandler(async (req, res, next) => {
-  res.send("create post");
-});
+exports.category_create_post = [
+  body("name", "Name must not be empty").trim().isLength({ min: 1 }).escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const error = validationResult(req);
+
+    const category = new Category({
+      name: req.body.name,
+    });
+
+    if (!error.isEmpty()) {
+      res.render("category_form", {
+        title: "Create Category",
+      });
+    } else {
+      await category.save();
+      res.redirect(category.url);
+    }
+  }),
+];
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
   res.send("delete get");
 });
@@ -23,5 +59,10 @@ exports.category_update_post = asyncHandler(async (req, res, next) => {
   res.send("update post");
 });
 exports.category_list = asyncHandler(async (req, res, next) => {
-  res.send("category list");
+  const category_list = await Category.find().sort({ name: 1 }).exec();
+
+  res.render("category_list", {
+    title: "Category List",
+    category_list: category_list,
+  });
 });
