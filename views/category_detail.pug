@@ -6,3 +6,8 @@ block content
   if items.length
     each item in items
       a(href=item.url) #{item.name}
+  hr
+  p
+    a(href=category.url+'/update') Update category
+  p
+    a(href=category.url+'/delete') Delete category
