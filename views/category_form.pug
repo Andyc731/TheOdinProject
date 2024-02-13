@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+
+  form(method='POST')
+    label(for='name') Name:
+    input#name.form-control(type='text', placeholder='Name of Category', name='name' required value=(undefined===category ? '' : category.name))
+    button.btn.btn-primary(type='submit') Submit

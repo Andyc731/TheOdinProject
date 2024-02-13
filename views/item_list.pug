@@ -5,6 +5,6 @@ block content
   if item_list.length
     each item in item_list
       div
-        p= item.name
+        a(href=item.url) #{item.name}
 
 

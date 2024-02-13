@@ -6,7 +6,7 @@ block content
   form(method='POST')
     div.form-group
       label(for='name') Name:
-      input#name.form-control(type='text', placeholder='Name of item' name='name' required value=(undefined===book ? '' : book.name))
+      input#name.form-control(type='text', placeholder='Name of item' name='name' required value=(undefined===item ? '' : item.name))
     div.form-group
       label Category:
       div
@@ -16,5 +16,5 @@ block content
               input.checkbox-input(type='checkbox', name='category', id=category._id, value=category._id, checked)
             else
               input.checkbox-input(type='checkbox', name='category', id=category._id, value=category._id)
-              label(for=category._id) #{category.name}
+            label(for=category._id) #{category.name}
     button.btn.btn-primary(type='submit') Submit

@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1 #{title}: #{category.name}
+
+  if items.length
+    each item in items
+      a(href=item.url) #{item.name}
