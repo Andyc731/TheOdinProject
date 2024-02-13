@@ -47,16 +47,41 @@ exports.category_create_post = [
   }),
 ];
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("delete get");
+  const [category, itemsInCategory] = await Promise.all([
+    Category.findById(req.params.id).exec(),
+    Item.find({ category: req.params.id }).sort({ name: 1 }).exec(),
+  ]);
+
+  res.render("category_delete", {
+    title: "Delete Category",
+    category: category,
+    items: itemsInCategory,
+  });
 });
 exports.category_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("delete post");
+  await Category.findByIdAndDelete(req.body.categoryid);
+  res.redirect("/catalog/category");
 });
 exports.category_update_get = asyncHandler(async (req, res, next) => {
-  res.send("update get");
+  const category = await Category.findById(req.params.id).exec();
+
+  res.render("category_form", {
+    title: "Update Category",
+    category: category,
+  });
 });
 exports.category_update_post = asyncHandler(async (req, res, next) => {
-  res.send("update post");
+  const category = new Category({
+    name: req.body.name,
+    _id: req.params.id,
+  });
+
+  const updatedCategory = await Category.findByIdAndUpdate(
+    req.params.id,
+    category,
+    {},
+  );
+  res.redirect(updatedCategory.url);
 });
 exports.category_list = asyncHandler(async (req, res, next) => {
   const category_list = await Category.find().sort({ name: 1 }).exec();
