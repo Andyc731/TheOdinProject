@@ -5,16 +5,16 @@ block content
 
   form(method='POST')
     div.form-group
-      label(for='name') Name:
+      label.form-label(for='name') Name:
       input#name.form-control(type='text', placeholder='Name of item' name='name' required value=(undefined===item ? '' : item.name))
     div.form-group
-      label Category:
+      label.form-label Category:
       div
         for category in categories
           div(style='display: inline; padding-right:10px;')
             if category.checked
-              input.checkbox-input(type='checkbox', name='category', id=category._id, value=category._id, checked)
+              input.form-check-input(type='checkbox', name='category', id=category._id, value=category._id, checked)
             else
-              input.checkbox-input(type='checkbox', name='category', id=category._id, value=category._id)
-            label(for=category._id) #{category.name}
+              input.form-check-input(type='checkbox', name='category', id=category._id, value=category._id)
+            label.form-check-label(for=category._id) #{category.name}
     button.btn.btn-primary(type='submit') Submit
