@@ -24,7 +24,7 @@ exports.item_list = asyncHandler(async (req, res, next) => {
   });
 });
 exports.item_create_get = asyncHandler(async (req, res, next) => {
-  const allCategory = Category.find().sort({ name: 1 }).exec();
+  const allCategory = await Category.find().sort({ name: 1 }).exec();
   res.render("item_form", {
     title: "Create Item",
     categories: allCategory,
