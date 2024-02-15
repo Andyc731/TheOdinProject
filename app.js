@@ -6,6 +6,7 @@ const LocalStrategy = require("passport-local");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
+require("dotenv").config();
 
 const mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB);
@@ -17,11 +18,22 @@ const User = mongoose.model(
   new Schema({
     username: { type: String, required: true },
     password: { type: String, required: true },
+    member: { type: Boolean, required: true },
+    admin: { type: Boolean, required: true },
+  }),
+);
+
+const Message = mongoose.model(
+  "Message",
+  new Schema({
+    text: { type: String, required: true },
+    user: { type: String, required: true },
+    date_created: { type: Date },
   }),
 );
 
 const app = express();
-app.set("views", __dirname);
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
@@ -34,8 +46,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
-  res.render("index", { user: req.user });
+app.get("/", async (req, res) => {
+  const [messageList, messageCount] = await Promise.all([
+    Message.find().sort({ date_created: 1 }).exec(),
+    Message.countDocuments().exec(),
+  ]);
+  res.render("index", {
+    user: req.user,
+    messageList: messageList,
+    messageCount: messageCount,
+  });
 });
 app.get("/sign-up", (req, res) => res.render("sign-up-form"));
 app.post("/sign-up", async (req, res, next) => {
@@ -44,6 +64,8 @@ app.post("/sign-up", async (req, res, next) => {
       const user = new User({
         username: req.body.username,
         password: hashedPassword,
+        member: false,
+        admin: false,
       });
       const result = await user.save();
     });
@@ -52,6 +74,26 @@ app.post("/sign-up", async (req, res, next) => {
     return next(err);
   }
 });
+
+app.get("/message-create", (req, res) =>
+  res.render("message-create", { user: req.user }),
+);
+app.post("/message-create", async (req, res, next) => {
+  try {
+    const message = new Message({
+      text: req.body.text,
+      user: req.user.username,
+      date_created: new Date(),
+    });
+    await message.save();
+  } catch (err) {
+    return next(err);
+  }
+  res.redirect("/");
+});
+
+app.get("/sign-in", (req, res) => res.render("sign-in-form"));
+
 app.post(
   "/log-in",
   passport.authenticate("local", {
@@ -67,6 +109,24 @@ app.get("/log-out", (req, res, next) => {
     }
     res.redirect("/");
   });
+});
+
+app.get("/become-member", (req, res) =>
+  res.render("become-member-form", { user: req.user, error: null }),
+);
+
+const member_pass = process.env.MEMBER_PASS;
+
+app.post("/become-member", async (req, res) => {
+  if (req.body.member_pass === member_pass) {
+    await User.findByIdAndUpdate(req.user._id, { member: true });
+    res.redirect("/");
+  } else {
+    res.render("become-member-form", {
+      user: req.user,
+      error: "Wrong Password",
+    });
+  }
 });
 
 passport.use(
