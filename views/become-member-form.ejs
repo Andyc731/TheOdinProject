@@ -1,0 +1,15 @@
+<%- include('header.ejs', { title: "Become a Member" }) %>
+  <% if (user) { %>
+
+ <form method='POST'>
+  <label for="member_pass">Enter member password</label>
+  <input type="text" name="member_pass" value="">
+  <button type='submit'> Submit </button>
+</form>
+<% } else { %>
+<p>Please sign in to become a member</p>
+<%}%>
+
+<% if (error) { %>
+  <p><%= error %></p>
+  <%}%>

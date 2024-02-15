@@ -1,0 +1,32 @@
+<%- include('header.ejs', { title: "Home Page" }) %>
+  <% if (user) { %>
+    <p>Welcome <%= user.username %>
+    </p>
+    <%}%>
+      <h1>Messages</h1>
+      <p>Message Count: <%= messageCount %>
+      </p>
+      <% messageList.forEach(message=> { %>
+        <p>
+          <%= message.text %>
+        </p>
+        <% if (user) {%>
+
+          <% if (user.member) {%>
+            <p>
+              <%= message.date_created %>
+            </p>
+            <p>
+              <%= message.user %>
+            </p>
+            <%- console.log("Username:", message.user); %>
+              <%}%>
+                <%} else {%>
+                  <p>Please sign in to see user, date created</p>
+                  <%}%>
+                    <% }) %>
+
+                      <% if (user) { %>
+                        <a href="/message-create">Create a new Message</a>
+                        <%}%>
+                          <%- include('footer.ejs') %>
