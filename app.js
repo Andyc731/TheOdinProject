@@ -6,6 +6,7 @@ const LocalStrategy = require("passport-local");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
+const { body, validationResult } = require("express-validator");
 require("dotenv").config();
 
 const mongoDB = process.env.MONGODB_URI;
@@ -16,6 +17,8 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 const User = mongoose.model(
   "User",
   new Schema({
+    first_name: { type: String, required: true },
+    family_name: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     member: { type: Boolean, required: true },
@@ -57,23 +60,51 @@ app.get("/", async (req, res) => {
     messageCount: messageCount,
   });
 });
-app.get("/sign-up", (req, res) => res.render("sign-up-form"));
-app.post("/sign-up", async (req, res, next) => {
-  try {
-    bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-      const user = new User({
+app.get("/sign-up", (req, res) => res.render("sign-up-form", { errors: null }));
+app.post(
+  "/sign-up",
+  body("username").custom(async (value) => {
+    const user = await User.findOne({ username: value });
+    if (user) {
+      throw new Error("Username Exists");
+    }
+  }),
+
+  body("password")
+    .isLength({ min: 5 })
+    .withMessage("Password must be at least 5 characters"),
+  body("confirm_password").custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error("Passwords do not match");
+    }
+    return value === req.body.password;
+  }),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("sign-up-form", {
+        first_name: req.body.first_name,
+        family_name: req.body.family_name,
         username: req.body.username,
-        password: hashedPassword,
-        member: false,
-        admin: false,
+        errors: errors.array(),
       });
-      const result = await user.save();
-    });
-    res.redirect("/");
-  } catch (err) {
-    return next(err);
-  }
-});
+    } else {
+      bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+        const user = new User({
+          first_name: req.body.first_name,
+          family_name: req.body.family_name,
+          username: req.body.username,
+          password: hashedPassword,
+          member: false,
+          admin: false,
+        });
+        await user.save();
+      });
+      res.redirect("/");
+    }
+  },
+);
 
 app.get("/message-create", (req, res) =>
   res.render("message-create", { user: req.user }),
@@ -92,13 +123,19 @@ app.post("/message-create", async (req, res, next) => {
   res.redirect("/");
 });
 
-app.get("/sign-in", (req, res) => res.render("sign-in-form"));
+app.get("/log-in", (req, res) => {
+  const messages = req.session.messages || [];
+
+  req.session.messages = [];
+  res.render("log-in-form", { errors: messages });
+});
 
 app.post(
   "/log-in",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/",
+    failureRedirect: "/log-in",
+    failureMessage: true,
   }),
 );
 
