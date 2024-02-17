@@ -111,10 +111,10 @@ app.post(
   },
 );
 
-app.get("/message-create", (req, res) =>
-  res.render("message-create", { user: req.user }),
+app.get("/message-form", (req, res) =>
+  res.render("message-form", { title: "Create Message", user: req.user }),
 );
-app.post("/message-create", async (req, res, next) => {
+app.post("/message-form", async (req, res, next) => {
   try {
     const message = new Message({
       text: req.body.text,
@@ -127,6 +127,31 @@ app.post("/message-create", async (req, res, next) => {
     return next(err);
   }
   res.redirect("/");
+});
+
+app.get("/message-form/:id", async (req, res) => {
+  const message = await Message.findById(req.params.id).exec();
+  res.render("message-form", {
+    title: "Edit Message",
+    message: message,
+    user: req.user,
+  });
+});
+
+app.post("/message-form/:id", async (req, res, next) => {
+  try {
+    const message = new Message({
+      text: req.body.text,
+      user: req.user.username,
+      display_name: req.user.display_name,
+      date_created: new Date(),
+      _id: req.params.id,
+    });
+    await Message.findByIdAndUpdate(req.params.id, message, {});
+    res.redirect("/");
+  } catch (err) {
+    return next(err);
+  }
 });
 
 app.get("/log-in", (req, res) => {
