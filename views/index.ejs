@@ -10,46 +10,48 @@
           <p>Message Count: <%= messageCount %>, User Count: <%= userCount%>
           </p>
           <% if (user) { %>
+            <% if (user.member) {%>
+              <p>
+                <a href="/message-form">Create a new Message</a>
+              </p>
 
-            <p>
-              <a href="/message-create">Create a new Message</a>
-            </p>
-            <%} else {%>
-              <p>Please log in to create a new message</p>
-              <%}%>
-                <% messageList.forEach(message=> { %>
-                  <div class="message-container">
+              <%} else {%>
+                <p>Please become a member to create a message. <a href="/become-member">Become a member</a></p>
+                <%}%>
+                  <%} else {%>
+                    <p>Please log in to create a new message</p>
+                    <%}%>
+                      <% messageList.forEach(message=> { %>
+                        <div class="message-container">
 
-                    <p class="message-text">
-                      <%= message.text %>
-                    </p>
-                    <% if (user) {%>
-
-                      <% if (user.member) {%>
-                        <div class="message-detail">
-
-                          <p class="message-user">
-                            Created by: <%= message.display_name %>
+                          <p class="message-text">
+                            <%= message.text %>
                           </p>
-                          <p class="message-date">
-                            <%= message.date_created.toLocaleString() %>
-                          </p>
-                        </div>
-                        <%}%>
-                          <div class="message-edit">
+                          <% if (user) {%>
 
-                            <% if (user.username===message.user) { %>
-                              <a href="/message-create">Edit message</a>
+                            <div class="message-detail">
+
+                              <p class="message-user">
+                                Created by: <%= message.display_name %>
+                              </p>
+                              <p class="message-date">
+                                <%= message.date_created.toLocaleString() %>
+                              </p>
+                            </div>
+                            <div class="message-edit">
+
+                              <% if (user.username===message.user) { %>
+                                <a href="/message-form/<%= message._id %>">Edit message</a>
+                                <%}%>
+                                  <% if (user.admin || user.username===message.user) {%>
+                                    <a href="/message-delete/<%= message._id %>">Delete message</a>
+                                    <%}%>
+                            </div>
+                            <%} else {%>
+                              <p>Please sign in to see user, date created</p>
                               <%}%>
-                                <% if (user.admin || user.username===message.user) {%>
-                                  <a href="/message-delete/<%= message._id %>">Delete message</a>
-                                  <%}%>
-                          </div>
-                          <%} else {%>
-                            <p>Please sign in to see user, date created</p>
-                            <%}%>
-                  </div>
-                  <% }) %>
+                        </div>
+                        <% }) %>
     </div>
   </div>
 
