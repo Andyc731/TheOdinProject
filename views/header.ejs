@@ -6,15 +6,22 @@
   <title>
     <%= title %>
   </title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
   <header>
-    <a href="/">Home</a>
-    <% if (user) {%>
-      <a href="/log-out">Log Out</a>
-      <% } else { %>
-        <a href="/sign-up">Sign Up</a>
-        <a href="/log-in">Sign In</a>
-        <% } %>
+    <a href="/" class="home">Home</a>
+    <div>
+      <% if (user) {%>
+
+        <% if (!user.member) {%>
+          <a href="/become-member">Become a member</a>
+          <%}%>
+            <a href="/log-out">Log Out</a>
+            <% } else { %>
+              <a href="/sign-up">Sign Up</a>
+              <a href="/log-in">Log In</a>
+              <% } %>
+    </div>
   </header>
