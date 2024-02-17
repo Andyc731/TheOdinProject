@@ -17,8 +17,7 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 const User = mongoose.model(
   "User",
   new Schema({
-    first_name: { type: String, required: true },
-    family_name: { type: String, required: true },
+    display_name: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     member: { type: Boolean, required: true },
@@ -31,6 +30,7 @@ const Message = mongoose.model(
   new Schema({
     text: { type: String, required: true },
     user: { type: String, required: true },
+    display_name: { type: String, required: true },
     date_created: { type: Date },
   }),
 );
@@ -44,35 +44,42 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
 
 app.get("/", async (req, res) => {
-  const [messageList, messageCount] = await Promise.all([
+  const [messageList, messageCount, userCount] = await Promise.all([
     Message.find().sort({ date_created: 1 }).exec(),
     Message.countDocuments().exec(),
+    User.countDocuments().exec(),
   ]);
   res.render("index", {
     user: req.user,
     messageList: messageList,
     messageCount: messageCount,
+    userCount: userCount,
   });
 });
 app.get("/sign-up", (req, res) => res.render("sign-up-form", { errors: null }));
 app.post(
   "/sign-up",
-  body("username").custom(async (value) => {
-    const user = await User.findOne({ username: value });
-    if (user) {
-      throw new Error("Username Exists");
-    }
-  }),
+  body("username")
+    .isLength({ min: 4 })
+    .withMessage("Username must be at least 4 characters")
+    .custom(async (value) => {
+      const user = await User.findOne({ username: value });
+      if (user) {
+        throw new Error("Username Exists");
+      }
+    }),
 
   body("password")
-    .isLength({ min: 5 })
-    .withMessage("Password must be at least 5 characters"),
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters"),
   body("confirm_password").custom((value, { req }) => {
     if (value !== req.body.password) {
       throw new Error("Passwords do not match");
@@ -84,16 +91,14 @@ app.post(
 
     if (!errors.isEmpty()) {
       res.render("sign-up-form", {
-        first_name: req.body.first_name,
-        family_name: req.body.family_name,
+        display_name: req.body.display_name,
         username: req.body.username,
         errors: errors.array(),
       });
     } else {
       bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
         const user = new User({
-          first_name: req.body.first_name,
-          family_name: req.body.family_name,
+          display_name: req.body.display_name,
           username: req.body.username,
           password: hashedPassword,
           member: false,
@@ -114,6 +119,7 @@ app.post("/message-create", async (req, res, next) => {
     const message = new Message({
       text: req.body.text,
       user: req.user.username,
+      display_name: req.user.display_name,
       date_created: new Date(),
     });
     await message.save();
@@ -164,6 +170,28 @@ app.post("/become-member", async (req, res) => {
       error: "Wrong Password",
     });
   }
+});
+
+const admin_pass = process.env.ADMIN_PASS;
+
+app.get("/become-admin", (req, res) =>
+  res.render("become-admin", { user: req.user }),
+);
+app.post("/become-admin", async (req, res) => {
+  if (req.body.admin_pass === admin_pass) {
+    await User.findByIdAndUpdate(req.user._id, { admin: true });
+    res.redirect("/");
+  } else {
+    res.render("become-admin", {
+      user: req.user,
+      error: "Wrong Password",
+    });
+  }
+});
+
+app.get("/message-delete/:id", async (req, res) => {
+  await Message.findOneAndDelete(req.params.id);
+  res.redirect("/");
 });
 
 passport.use(
