@@ -1,0 +1,26 @@
+<%- include('header.ejs', { title: title }) %>
+  <div class="container">
+    <div class="content">
+  <% if (user) {%>
+      <% if (user.member) {%>
+        <h1>WELCOME BACK <%= user.display_name %>
+        </h1>
+        <form method="POST">
+          <label for="text">Message:</label>
+          <input name="text" placeholder="text" type="text" value=<%=locals.message ? locals.message.text : '' %> >
+          <button>Submit</button>
+        </form>
+        <% } else { %>
+          <p>You must be a member to create a message</p>
+          <a href="/become-member">Become a member</a>
+          <a href="/log-out">LOG OUT</a>
+          <%}%>
+            <% } else { %>
+              <h1>Please log in to create a message</h1>
+              <a href="/log-in">Sign in</a>
+              <%}%>
+              </div>
+              </div>
+                </body>
+
+                </html>
