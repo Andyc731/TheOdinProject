@@ -1,32 +1,56 @@
 <%- include('header.ejs', { title: "Home Page" }) %>
-  <% if (user) { %>
-    <p>Welcome <%= user.username %>
-    </p>
-    <%}%>
-      <h1>Messages</h1>
-      <p>Message Count: <%= messageCount %>
-      </p>
-      <% messageList.forEach(message=> { %>
-        <p>
-          <%= message.text %>
+  <div class="container">
+    <div class="content">
+      <% if (user) { %>
+        <p>Welcome <%= user.display_name %>
         </p>
-        <% if (user) {%>
+        <%}%>
 
-          <% if (user.member) {%>
+          <h1>Messages</h1>
+          <p>Message Count: <%= messageCount %>, User Count: <%= userCount%>
+          </p>
+          <% if (user) { %>
+
             <p>
-              <%= message.date_created %>
+              <a href="/message-create">Create a new Message</a>
             </p>
-            <p>
-              <%= message.user %>
-            </p>
-            <%- console.log("Username:", message.user); %>
+            <%} else {%>
+              <p>Please log in to create a new message</p>
               <%}%>
-                <%} else {%>
-                  <p>Please sign in to see user, date created</p>
-                  <%}%>
-                    <% }) %>
+                <% messageList.forEach(message=> { %>
+                  <div class="message-container">
 
-                      <% if (user) { %>
-                        <a href="/message-create">Create a new Message</a>
+                    <p class="message-text">
+                      <%= message.text %>
+                    </p>
+                    <% if (user) {%>
+
+                      <% if (user.member) {%>
+                        <div class="message-detail">
+
+                          <p class="message-user">
+                            Created by: <%= message.display_name %>
+                          </p>
+                          <p class="message-date">
+                            <%= message.date_created.toLocaleString() %>
+                          </p>
+                        </div>
                         <%}%>
-                          <%- include('footer.ejs') %>
+                          <div class="message-edit">
+
+                            <% if (user.username===message.user) { %>
+                              <a href="/message-create">Edit message</a>
+                              <%}%>
+                                <% if (user.admin || user.username===message.user) {%>
+                                  <a href="/message-delete/<%= message._id %>">Delete message</a>
+                                  <%}%>
+                          </div>
+                          <%} else {%>
+                            <p>Please sign in to see user, date created</p>
+                            <%}%>
+                  </div>
+                  <% }) %>
+    </div>
+  </div>
+
+  <%- include('footer.ejs') %>
