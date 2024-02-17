@@ -1,0 +1,20 @@
+<%- include('header.ejs', { title: "Become a Member" }) %>
+  <% if (user) {%>
+    <% if (user.member) { %>
+
+      <form method='POST'>
+        <label for="admin_pass">Enter admin password</label>
+        <input type="text" name="admin_pass" value="">
+        <button type='submit'> Submit </button>
+      </form>
+      <% } else { %>
+        <p>Please become a member to become a admin</p>
+        <%}%>
+          <% if (locals.error) { %>
+            <p>
+              <%= error %>
+            </p>
+            <%}%>
+              <%} else {%>
+                <p>Please sign in to become an admin</p>
+                <%}%>
