@@ -7,6 +7,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
+const compression = require("compression");
+const helmet = require("helmet");
+const RateLimit = require("express-rate-limit");
 require("dotenv").config();
 
 const mongoDB = process.env.MONGODB_URI;
@@ -35,6 +38,20 @@ const Message = mongoose.model(
   }),
 );
 
+app.use(compression());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  }),
+);
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 20,
+});
+app.use(limiter);
+
 const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -53,7 +70,7 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   const [messageList, messageCount, userCount] = await Promise.all([
-    Message.find().sort({ date_created: 1 }).exec(),
+    Message.find().sort({ date_created: -1 }).limit(20).exec(),
     Message.countDocuments().exec(),
     User.countDocuments().exec(),
   ]);
@@ -67,9 +84,14 @@ app.get("/", async (req, res) => {
 app.get("/sign-up", (req, res) => res.render("sign-up-form", { errors: null }));
 app.post(
   "/sign-up",
+  body("display_name")
+    .isLength({ max: 20 })
+    .withMessage("Display name must be at most 20 characters"),
   body("username")
     .isLength({ min: 4 })
     .withMessage("Username must be at least 4 characters")
+    .isLength({ max: 16 })
+    .withMessage("Username must be at most 16 characters")
     .custom(async (value) => {
       const user = await User.findOne({ username: value });
       if (user) {
@@ -79,7 +101,9 @@ app.post(
 
   body("password")
     .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters"),
+    .withMessage("Password must be at least 6 characters")
+    .isLength({ max: 20 })
+    .withMessage("Password must be at most 20 characters"),
   body("confirm_password").custom((value, { req }) => {
     if (value !== req.body.password) {
       throw new Error("Passwords do not match");
@@ -111,10 +135,10 @@ app.post(
   },
 );
 
-app.get("/message-form", (req, res) =>
+app.get("/message-create", (req, res) =>
   res.render("message-form", { title: "Create Message", user: req.user }),
 );
-app.post("/message-form", async (req, res, next) => {
+app.post("/message-create", async (req, res, next) => {
   try {
     const message = new Message({
       text: req.body.text,
@@ -129,7 +153,7 @@ app.post("/message-form", async (req, res, next) => {
   res.redirect("/");
 });
 
-app.get("/message-form/:id", async (req, res) => {
+app.get("/message-edit/:id", async (req, res) => {
   const message = await Message.findById(req.params.id).exec();
   res.render("message-form", {
     title: "Edit Message",
@@ -138,7 +162,7 @@ app.get("/message-form/:id", async (req, res) => {
   });
 });
 
-app.post("/message-form/:id", async (req, res, next) => {
+app.post("/message-edit/:id", async (req, res, next) => {
   try {
     const message = new Message({
       text: req.body.text,
