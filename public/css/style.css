@@ -3,6 +3,7 @@ html {
   font-weight: 600;
   color: white;
   font-size: 20px;
+  min-height: 100vh;
 }
 
 p.message-text {
@@ -20,7 +21,11 @@ p.message-text::-webkit-scrollbar {
 body {
   padding: 0;
   margin: 0;
+  min-height: 100vh;
   background-color: #20212a;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .message-container {
@@ -68,6 +73,7 @@ header {
 .container {
   display: flex;
   justify-content: center;
+  flex: 1;
 }
 
 .content {
@@ -140,4 +146,14 @@ input {
 
 .colored {
   color: #9ade7b;
+}
+
+.git {
+  width: 18px;
+}
+
+footer {
+  display: flex;
+  background-color: rgb(0, 0, 0, 0.8);
+  justify-content: center;
 }
