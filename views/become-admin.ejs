@@ -1,4 +1,7 @@
-<%- include('header.ejs', { title: "Become a Member" }) %>
+<%- include('header.ejs', { title: "Become an Admin" }) %>
+
+  <div class="container">
+    <div class="content">
   <% if (user) {%>
     <% if (user.member) { %>
 
@@ -18,3 +21,5 @@
               <%} else {%>
                 <p>Please sign in to become an admin</p>
                 <%}%>
+                </div>
+                </div>

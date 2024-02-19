@@ -1,11 +1,19 @@
 <%- include('header.ejs', { title: "Become a Member" }) %>
+
+  <div class="container">
+    <div class="content">
   <% if (user) { %>
+  <% if (user.member) {%>
+    <p>You are already a member</p>
+  <%}else{%>
+  <p>Member Password: memberPassword</p>
 
  <form method='POST'>
   <label for="member_pass">Enter member password</label>
   <input type="text" name="member_pass" value="">
   <button type='submit'> Submit </button>
 </form>
+<%}%>
 <% } else { %>
 <p>Please sign in to become a member</p>
 <%}%>
@@ -13,3 +21,5 @@
 <% if (error) { %>
   <p><%= error %></p>
   <%}%>
+  </div>
+  </div>
