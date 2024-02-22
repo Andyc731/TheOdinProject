@@ -1,8 +1,13 @@
 import "dotenv/config";
 import cors from "cors";
 import express from "express";
-
+import "dotenv";
+import mongoose from "mongoose";
 import routes from "./routes";
+
+const mongoDB = process.env.MONGODB_URI;
+
+mongoose.connect(mongoDB);
 
 const app = express();
 
@@ -15,8 +20,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", routes.user);
-app.use("/", routes.blog);
-app.use("/comments", routes.comments);
 app.use("/posts", routes.posts);
 
 app.listen(3000, () => console.log("Listening on port 3000!"));
