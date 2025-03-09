@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <div id="container-top">
+    
+            <form action="" id="myForm">
+                <input type="text" id="search" required>
+            </form>
+        
+            <div class="switch-div">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <div id="unit"></div>
+            </div>
+        </div>
+        <div class="location"></div>
+        <div class="time">blah</div>
+        <div id="container-middle">
+            <div class="middle-div" id="left-middle">
+                <div class="current-condition"></div>
+                <img src="#" alt="" id="myImg">
+                <div id="temperature-div"></div>
+            </div>
+            <div class="middle-div" id="right-middle">
+                <div class="condition" id="feel">feels like</div>
+                <div class="condition" id="humidity">humidity</div>
+                <div class="condition" id="rain-chance">chance of rain</div>
+                <div class="condition" id="wind-speed">wind speed</div>
+        
+            </div>
+    
+        </div>
+    
+        <div id="container-bottom">
+            <div class='days'></div>
+            <div class='days'></div>
+            <div class='days'></div>
+            <div class='days'></div>
+            <div class='days'></div>
+            <div class='days'></div>
+            <div class='days'></div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
