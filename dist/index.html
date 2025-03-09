@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">Amtodo</div>
+        <div class="tab home active">Home</div>
+        <div class="tab today">Today</div>
+        <div class="tab week">Week</div>
+        <div class="tab month">Month</div>
+    </div>
+    <div class="sidebar">
+        <div class="tag todoTag active">Todo</div>
+        <div class="addTag">+ Add a tag</div>
+        <div class="tag projects">Projects</div>
+    </div>
+    <div class="content">
+        <div class="todo today">Try to have a great day</div>
+    </div>
+
+    <dialog id="addTagDialog">
+        <form action="" method="get" id="tagForm">
+            <input type="text" id="tag-name" name="tag-name" placeholder="Tag Name">
+            <button type="button" class="addTagButton">Add</button>
+        </form>
+    </dialog>
+
+    <dialog id="addTodoDialog">
+        <form action="" method="get" id="todoForm">
+            <input type="text" id="title" name="title" placeholder="Title">
+            <input type="text" id="description" name="description" placeholder="Description">
+            <label for="dueDate">Due:</label>
+            <input type="date" id="dueDate" name="dueDate">
+            <select name="priority" id="priority">
+                <option value="low" selected>Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+            </select>
+            <span>Tags:</span>
+            <button type="button" class="addTodoButton">Add</button>
+        </form>
+        
+    </dialog>
+    
+
+    <script src="main.js"></script>
+</body>
+</html>
