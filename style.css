@@ -1,0 +1,83 @@
+body{
+    margin: 0;
+}
+
+h1 {
+    height: 120px;
+    text-align: center;
+    background-color: blue;
+    margin-top: 0;
+    padding-top: 80px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 330px);
+}
+
+#read {
+    vertical-align: middle;
+}
+
+#bookForm {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: white;
+    justify-content: center;
+    top: 0;
+    left: 0;
+}
+
+#form-container {
+    align-self: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 250px;
+    padding: 15px;
+    gap: 15px;
+}
+
+dialog {
+    background-color: aquamarine;
+}
+
+input {
+    border-radius: 10px;
+    height: 30px;
+}
+
+button {
+    margin: 5px;
+}
+
+.openForm {
+    min-height: 312px;
+    font-size: 70px;
+    border-radius: 20px;
+    background-color: azure;
+    border-width: 4px;
+    border-color: aqua;
+    margin: 20px;
+    box-shadow: 4px 4px 6px 3px rgba(0, 0, 0, 0.3);
+    color: aqua;
+}
+
+.card {
+    display: grid;
+    justify-content: center;
+    height: 250px;
+    padding: 30px;
+    border-radius: 20px;
+    border: solid;
+    border-color: aqua;
+    margin: 20px;
+    box-shadow: 4px 4px 6px 3px rgba(0, 0, 0, 0.3);
+}
+
+.bookTitle {
+    margin-top: 15px;
+    font-size: 30px;
+    text-align: center;
+}
