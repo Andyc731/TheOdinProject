@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+}
+
+img {
+    margin: 0;
+}
+.image.active {
+    visibility: visible;
+}
+
+.container {
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: -2;
+    width: 3000px;
+    transition: 1s;
+}
+
+.next-button,
+.previous-button {
+    position: relative;
+    top:115px;
+}
+
+.next-button {
+    left: 430px;
+}
+
+.previous-button {
+    left: 10px;
+}
+
+.frame {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    width: 480px;
+    height: 300px;
+    z-index: -1;
+}
+
+.dot {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.dot-container {
+    display: flex;
+    width: 400px;
+    position: absolute;
+    left: 180px;
+    top: 230px;
+    gap: 10px;
+}
+
+.active {
+    background-color: blue;
+}
