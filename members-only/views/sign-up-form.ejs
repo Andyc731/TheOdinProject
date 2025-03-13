@@ -1,0 +1,33 @@
+<%- include('header.ejs', { title: "Sign Up" }) %>
+  <div class="container">
+    <div class="content">
+      <h1>Sign Up</h1>
+      <form action="" method="POST">
+        <label for="display_name">Display Name</label>
+        <input type="text" name="display_name" value="<%= locals.display_name || '' %>" required>
+        <label for="username">Username</label>
+        <input name="username" placeholder="username" type="text" value="<%= locals.username || '' %>" required/>
+        <label for="password">Password</label>
+        <input name="password" type="password" required />
+        <label for="confirm_password">Confirm Password</label>
+        <input name="confirm_password" type="password" required />
+
+        <button>Sign Up</button>
+      </form>
+
+      <% if (errors) {%>
+        <ul>
+          <% errors.forEach(error=> { %>
+            <li class="error">
+              <%= error.msg %>
+            </li>
+            <%})%>
+        </ul>
+        <%}%>
+    </div>
+  </div>
+
+  <%- include('footer.ejs')%>
+  </body>
+
+  </html>

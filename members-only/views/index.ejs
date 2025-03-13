@@ -1,0 +1,69 @@
+<%- include('header.ejs', { title: "Home Page" }) %>
+  <div class="container">
+    <div class="content">
+      <% if (user) { %>
+        <p>Welcome <%= user.display_name %>
+        </p>
+        <%}%>
+
+          <h1>Messages</h1>
+          <p>Message Count: <%= messageCount %>, User Count: <%= userCount%>
+          </p>
+          <li>Shows 20 most recent messages. Top being the most recent.</li>
+
+          <li>Any signed up user can create a message. Only members and admins can see creator and date of message.</li>
+          <li>If the user matches the creator of the message, user can edit/delete that message</li>
+          <li>Admins can delete any message</li>
+          <% if (user) { %>
+
+            <p>
+              <a href="/message-create">Create a new Message</a>
+            </p>
+
+
+            <%} else {%>
+              <p style="color: #81fdff">Please log in to create a new message</p>
+              <%}%>
+                <% messageList.forEach(message=> { %>
+                  <div class="message-container">
+
+                    <p class="message-text">
+                      <%= message.text %>
+                    </p>
+                    <% if (user) {%>
+                      <% if (user.member) {%>
+                        <div class="message-detail">
+
+                          <p class="message-user">
+                            User: <%= message.display_name %>
+                          </p>
+                          <p class="message-date">
+                            <%= message.date_created.toLocaleString() %>
+                          </p>
+                        </div>
+                        <div class="message-edit">
+
+                          <% if (user.username===message.user) { %>
+                            <a href="/message-edit/<%= message._id %>">Edit message</a>
+                            <%}%>
+                              <% if (user.admin || user.username===message.user) {%>
+                                <a href="/message-delete/<%= message._id %>">Delete message</a>
+                                <%}%>
+                        </div>
+                        <%} else {%>
+                          <p class="message-detail">Please become a member to see user, date created. <a
+                              href="/become-member">Become a member</a></p>
+                          <%}%>
+
+
+
+                            <%} else {%>
+                              <p class="message-detail">Please become a member to see user, date created</p>
+                              <%}%>
+                  </div>
+                  <% }) %>
+    </div>
+  </div>
+  <%- include('footer.ejs')%>
+  </body>
+  </html>

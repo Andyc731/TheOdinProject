@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header>
+    <p class="home">
+      <a href="/" class="button home-link"><span class="colored">members</span>Only</a>
+    </p>
+    <div>
+      <% if (locals.user) {%>
+
+        <% if (!user.member) {%>
+          <a href="/become-member" class="button">Become a member</a>
+          <%}%>
+            <a href="/log-out" class="button">Log Out</a>
+            <% } else { %>
+              <a href="/sign-up" class="button">Sign Up</a>
+              <a href="/log-in" class="button">Log In</a>
+              <% } %>
+    </div>
+  </header>

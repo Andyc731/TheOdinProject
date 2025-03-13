@@ -1,0 +1,29 @@
+<%- include('header.ejs', { title: "Become an Admin" }) %>
+
+  <div class="container">
+    <div class="content">
+  <% if (user) {%>
+    <% if (user.member) { %>
+
+      <form method='POST'>
+        <label for="admin_pass">Enter admin password</label>
+        <input type="text" name="admin_pass" value="">
+        <button type='submit'> Submit </button>
+      </form>
+      <% } else { %>
+        <p>Please become a member to become a admin</p>
+        <%}%>
+          <% if (locals.error) { %>
+            <p>
+              <%= error %>
+            </p>
+            <%}%>
+              <%} else {%>
+                <p>Please sign in to become an admin</p>
+                <%}%>
+
+                </div>
+                </div>
+                <%- include('footer.ejs')%>
+                </body>
+                </html>
